@@ -1,17 +1,29 @@
-<header>
+<header class="border-bottom">
 
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <div class="container">
+            <nav class="navbar navbar-light bg-ligh">
+                <a href="{{route("home")}}" class="navbar-brand text-dark text-decoration-none">
+                    <span class="fs-4 ">Flori_VRN</span>
+                </a>
 
-            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                <span class="fs-4 ">Flori_VRN</span>
-            </a>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="{{route("about")}}">Про нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="{{route("contact")}}">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="{{route("contact-data")}}">Сообщения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="/login">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="text-dark nav-link" href="/register">Регистрация</a>
+                    </li>
 
-            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-                <a class="me-3 py-2 text-dark text-decoration-none" href="/about">Про нас</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="/contacts">Контакты</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="/login">Вход</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="/registr">Регистрация</a>
+                </ul>
             </nav>
-
     </div>
 </header>

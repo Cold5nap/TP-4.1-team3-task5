@@ -11,7 +11,11 @@
 </head>
 <body>
     @include('inc.header')
-    @yield("content")
+    <div class="container">
+        @include('inc.messages')
+        @yield("content")
+    </div>
+
 @include('inc.footer')
 </body>
 </html>
