@@ -12,10 +12,6 @@
             <button type="submit">Значок корзины</button>
         </form>
     </div>
-    <div class="border col ">
-        <img class="img-fluid w-25 p-3" src="{{asset('images/'.$item->image->name.$item->image->extension)}}" alt="{{$item->name}}">
-        {{$item->price}}
-    </div>
 @endforeach
     <div class="d-flex justify-content-center">
         {{ $goods->links('pagination::bootstrap-5') }}

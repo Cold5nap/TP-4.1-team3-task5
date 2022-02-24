@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@showGoods')->name("home");
@@ -18,7 +19,4 @@ Route::post('/contact/submit', 'App\Http\Controllers\ContactController@submit')-
 Route::get('/contact/all', 'App\Http\Controllers\ContactController@allData')->name('contact-data');/*для администраторов*/
 Route::get('/contact/all/{id}', 'App\Http\Controllers\ContactController@showOneMessage')->name('contact-data-one');/*для администраторов*/
 
-
-/*Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
+Auth::routes();
