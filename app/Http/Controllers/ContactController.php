@@ -19,10 +19,10 @@ class ContactController extends Controller
     }
 
     public function allData(){
-        return view('userMessage',['data'=>Contact::all()]);
+        return view('user_message',['data'=>Contact::all()]);
     }
 
     public function showOneMessage($id){
-        return view('one-userMessage',['data'=>Contact::find($id)]);
+        return view('one_user_message',['data'=>Contact::find($id)]);
     }
 }

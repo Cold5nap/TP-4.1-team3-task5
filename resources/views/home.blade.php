@@ -4,4 +4,5 @@
 
 @section('content')
     Главная страница
+    @include('goods')
 @endsection
