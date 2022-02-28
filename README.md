@@ -1,14 +1,17 @@
 # Flori_Vrn
 
-Почта для связи: lesya-lipatova01@mail.ru
+Почта для связи: dpv1202@mai.ru
 
-## Сайт для создания и доставки цветочных композиций 
+## Сайт для создания и доставки цветочных композиций
+
+На нашем сайте вы сможете не только выбрать букет и заказать его, но и собрать самостоятельно, подобрав отдельные цветы и обертку.
+
 •	LesyaLipatova - Липатова Олеся, 4.1 группа <br>
 •	Cold5nap - Андреев Андрей, 4.1 группа <br>
 •	PolinaDrukova – Дрюкова Полина, 4.1 группа
 
 # Сервисы для работы
-•	[Jira](https://flori-vrn.atlassian.net/jira/software/projects/FV/boards/1) <br>
+•	[Trello](https://trello.com/b/Nqp99d2G/florivrn) <br>
 •	[Miro](https://miro.com/app/board/uXjVOKXFtbQ=/) 
 
 # Документация
