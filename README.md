@@ -15,5 +15,5 @@
 •	[Miro](https://miro.com/app/board/uXjVOKXFtbQ=/) 
 
 # Документация
-
+•	[Brief](https://docs.google.com/document/d/1IJp-1C8tf-0_l_FjSb6YfyyIs4_G51yvAsvgOAiFqi4/edit?usp=sharing)<br>
 # Сайт
