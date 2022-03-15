@@ -16,4 +16,5 @@
 
 # Документация
 •	[Brief](https://docs.google.com/document/d/1IJp-1C8tf-0_l_FjSb6YfyyIs4_G51yvAsvgOAiFqi4/edit?usp=sharing)<br>
+•	[ТЗ](https://docs.google.com/document/d/1PjA8C-YgeCkOdfoa_RBZQ7cQrkup6XlGSz_I-tRGadE/edit?usp=sharing)<br>
 # Сайт
