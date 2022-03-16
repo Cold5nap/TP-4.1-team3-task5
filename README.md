@@ -16,6 +16,6 @@
 
 # Документация
 •	[Brief](https://docs.google.com/document/d/1IJp-1C8tf-0_l_FjSb6YfyyIs4_G51yvAsvgOAiFqi4/edit?usp=sharing)<br>
-•	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/documents/Tekhnicheskoe_zadanie_1.pdf)<br>
-•	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/documents/Tekhnicheskoe_zadanie_1.docx)<br>
+•	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Tekhnicheskoe_zadanie_1.pdf)<br>
+•	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Tekhnicheskoe_zadanie_1.docx)<br>
 # Сайт
