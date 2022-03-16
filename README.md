@@ -19,6 +19,6 @@
 •	[Figma](https://www.figma.com/file/WP77N7u5n6KaKM3tPLNumZ/Flory_vrn?node-id=0%3A1)<br>
 •	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Tekhnicheskoe_zadanie_1.docx)<br>
 •	[ТЗ.pdf](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Tekhnicheskoe_zadanie_1.pdf)<br>
-•	[Курсовая](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Kursach(1).docx)<br>
+•	[Курсовая](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Kursovai.docx)<br>
 
 # Сайт
