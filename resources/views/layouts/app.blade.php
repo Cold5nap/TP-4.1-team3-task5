@@ -18,12 +18,15 @@
     <title>@yield("title")</title>
 </head>
 <body>
-@include('inc.header')
-<div class="container">
-    @include('inc.messages')
-    @yield("content")
+<div class="bg-warning p-2 text-dark bg-opacity-10">
+    @include('inc.header')
+    <div class="container">
+        @include('inc.messages')
+        @yield("content")
+    </div>
+
+    @include('inc.footer')
 </div>
 
-@include('inc.footer')
 </body>
 </html>

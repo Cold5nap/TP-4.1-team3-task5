@@ -16,6 +16,11 @@ return new class extends Migration
         Schema::create('compositions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('price');
+            $table->integer('count_materials');
+            $table->integer('sum');
+            $table->integer('main_image_id');
+
             $table->timestamps();
         });
     }

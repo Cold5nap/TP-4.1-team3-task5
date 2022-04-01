@@ -2,19 +2,19 @@
 
     <div class="container">
             <nav class="navbar navbar-light bg-ligh">
-                <a href="{{route("home")}}" class="navbar-brand text-dark text-decoration-none">
+                <a href="/" class="navbar-brand text-dark text-decoration-none">
                     <span class="fs-4 ">Flori_VRN</span>
                 </a>
 
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="text-dark nav-link" href="{{route("about")}}">Про нас</a>
+                        <a class="text-dark nav-link" href="/about">Про нас</a>
                     </li>
                     <li class="nav-item">
-                        <a class="text-dark nav-link" href="{{route("contact")}}">Контакты</a>
+                        <a class="text-dark nav-link" href="/contacts/create">Связь</a>
                     </li>
                     <li class="nav-item">
-                        <a class="text-dark nav-link" href="{{route("contact-data")}}">Сообщения</a>
+                        <a class="text-dark nav-link" href="/contacts">Сообщения</a>
                     </li>
                     @guest
                         @if (Route::has('login'))
@@ -46,8 +46,14 @@
                                 </form>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a href="/orders">Заказы</a>
+                        </li>
                     @endguest
 
+                    <li class="nav-item">
+                        <a href="/shopping-cart">Корзина</a>
+                    </li>
                 </ul>
             </nav>
     </div>

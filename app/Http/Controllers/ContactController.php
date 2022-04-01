@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
+use Illuminate\Http\Request;
+
 class ContactController extends Controller
 {
-    public function submit(ContactRequest $request)
+
+    public function index()
+    {
+        return view('contacts',['data'=>Contact::all()]);
+    }
+
+
+    public function create()
+    {
+        return view('contacts-form');
+    }
+
+    public function store(ContactRequest $request)
     {
         $contact = new Contact();
         $contact->name=$request->input('name');
@@ -15,14 +28,46 @@ class ContactController extends Controller
         $contact->message=$request->input('message');
         $contact->subject=$request->input('subject');
         $contact->save();
-        return redirect()->route('home')->with('success','Сообщение было добавлено.');
+        return back()->with('success','Сообщение было добавлено.');
     }
 
-    public function allData(){
-        return view('user_message',['data'=>Contact::all()]);
+
+    public function show($id)
+    {
+        return view('contacts-show',['data'=>Contact::find($id)]);
     }
 
-    public function showOneMessage($id){
-        return view('one_user_message',['data'=>Contact::find($id)]);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }
