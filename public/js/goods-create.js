@@ -27,7 +27,7 @@ function addMaterial(){
         '                    </div>\n' +
         '\n' +
         '                    <div class="col form-floating">\n' +
-        '                        <input class="form-control" type="number" id="compositionNumber" name="composition['+nextNumberMaterial+'][1]">\n' +
+        '                        <input class="form-control" type="number" min="1" id="compositionNumber" name="composition['+nextNumberMaterial+'][1]">\n' +
         '                        <label for="compositionNumber">Количество</label>\n' +
         '                    </div>\n' +
         '                    <div class="col">\n' +

@@ -34,14 +34,25 @@ class AdminGoodsController extends Controller
         return view('admin.goods.create',['composition'=>Composition::all()]);
     }
 
-
+    /**
+     * Возращает к просмотру товаров.
+     * Метод сохраняет изображения на диске, добавляет записи в таблицы
+     * goods, goods_composition, goods_images, images.
+     * Фотографии редактируются перед сохранением,
+     * так же к их имени добавляется дата и порядковый номер для этой даты.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(Request $request)
     {
         date_default_timezone_set('europe/moscow');
-        $date = date("d.m.Y,H.i.s");
-        $i =0;
+        $date_file = date("d-m-Y_H-i-s");
+        $date_db = date("Y-m-d H:i:s");
+        $image_counter =0;
 
-        $image = saveImageInDBAndDisk($request->file('main_image'),$date,$i++);
+        //добавим главное изображение на диск и в бд
+        $image = saveImageInDBAndDisk($request->file('main_image'),$date_file,$image_counter++);
 
         //добавим товар в бд
         $goods = new Goods();
@@ -53,31 +64,40 @@ class AdminGoodsController extends Controller
         $goods->main_image_id = $image->id;
         $goods->save();
 
-        //Добавили фотографии для подробного рассмотрения
+        //Добавим фотографии для подробного рассмотрения
         $images_req = $request->file('other_images');
-        for (;$i<count($images_req);$i++) {
-
-            $other_image = saveImageInDBAndDisk($images_req[$i], $date, $i);
-            // добавляем в отношение товар-изображение
-            //понять какой id возвращается для записи method insertgetid
-
-            $goods_images = new Goods_images();
-            $goods_images->image_id = $other_image->id;
-            $goods_images->goods_id = $goods->id;
-            $goods_images->save();
+        $images_insert=[];//матрица, где ряд - данные о вставляемой записи
+        $goods_images=[];// массив хранящий id изображения для добавления в отношение товар-изображение
+        $last_image_id = Image::latest()->first()->id;
+        foreach ($images_req as $image_req){
+            //сохраняем отредактированное изображение на диске и получаем название, путь и расширение файла
+            $parameters = saveImageOnDisk($image_req,$date_file,$image_counter++);
+            $parameters['created_at']=$date_db;
+            $parameters['updated_at']=$date_db;
+            $images_insert[]=$parameters;
+            $goods_images[] = [
+                'image_id'=> ++$last_image_id,
+                'goods_id'=>$goods->id,
+                'created_at'=>$date_db,
+                'updated_at'=>$date_db];
         }
+        DB::table('images')->insert($images_insert);//добавили изображения в бд
+        DB::table('goods_images')->insert($goods_images);//добавили изображения в бд отношение товар-изображение
 
-        //добавить состав товара
+        //добавим состав товара
         $compositions_req = $request->input('composition');
+        $goods_compositions= [];
         foreach ($compositions_req as $comp_req) {
-
-            $goods_composition = new Goods_composition();
-            $goods_composition->composition_id = $comp_req[0];
-            $goods_composition->goods_id = $goods->id;
-            $goods_composition->number = $comp_req[1];
-            $goods_composition->save();
+        $goods_compositions[]=[
+            'composition_id'=>$comp_req[0],
+            'goods_id'=>$goods->id,
+            'number'=>$comp_req[1],
+            'created_at'=>$date_db,
+            'updated_at'=>$date_db];
         }
-        return redirect('/admin-panel/price-calculation/composition')->with('success','Материал добавлен.');
+        DB::table('goods_compositions')->insert($goods_compositions);//добавили в бд в отношение товары состав
+
+        return redirect('/admin-panel/price-calculation/goods')->with('success','Материал добавлен.');
 
     }
 

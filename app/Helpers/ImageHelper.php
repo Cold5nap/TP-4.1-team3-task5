@@ -16,10 +16,10 @@ if (!function_exists('saveImageOnDisk')) {
     function saveImageOnDisk($image_req, $date, $image_number = '')
     {
         if ($image_number != '')
-            $image_number = $image_number . ')';
-        $name = $image_number . $date . '-' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
+            $image_number = $image_number . '_';
+        $name = $image_number . $date . '_' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
         $newExtension = 'webp';
-        $path = '/images/' . $name . '.' . $newExtension;
+        $path = '/images/' . $name . '.' . $newExtension;// относительный путь до файла
 
         //сохраняем на диске
         \Image::make($image_req)
@@ -27,7 +27,7 @@ if (!function_exists('saveImageOnDisk')) {
             ->fit(600, 900)
             ->save(public_path() . $path, 20, $newExtension);
 
-        return [$name,$path,$newExtension];
+        return ['name'=>$name,'path'=>$path,'extension'=>$newExtension];
     }
 }
 
@@ -48,9 +48,9 @@ if (!function_exists('saveImageInDBAndDisk')) {
 
         // добавляем в бд изображение
         $image = new Image();
-        $image->path = $file[0];
-        $image->name = $file[1];
-        $image->extension = $file[2];
+        $image->path = $file['path'];
+        $image->name = $file['name'];
+        $image->extension = $file['extension'];
         $image->save();
         return $image;
     }

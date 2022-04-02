@@ -12,12 +12,12 @@
         </div>
         <div class="col form-group">
             <label for="cost_price">Себестоимость</label>
-            <span id="cost_price"></span>
+            <input disabled type="text" name="cost_price" id="cost_price" class="form-control" value="">
             {{--Сделать с js высчитывание себестоимости композиции--}}
         </div>
         <div class="col form-group">
             <label for="markup">Введите наценку %</label>
-            <input type="number" name="markup" placeholder="Наценка в процентах" id="markup" class="form-control">
+            <input type="number" min="0" max="100" name="markup" placeholder="Наценка в процентах" id="markup" class="form-control">
         </div>
         <div class="col form-group">
             <label for="price">Цена композиции</label>
@@ -25,12 +25,12 @@
         </div>
         <div class="col-3 form-group">
             <label for="count_goods">Введите кол-во композиций</label>
-            <input type="number" name="count_goods" placeholder="кол-во" id="count_goods"
+            <input type="number" min="1" name="count_goods" placeholder="кол-во" id="count_goods"
                    class="form-control">
         </div>
         <div class="col-3 form-group">
             <label for="sum">Сумма за композиции</label>
-            <span id="sum">...</span>
+            <input disabled type="text" name="sum" id="sum" class="form-control" value="">
             {{--Сделать с js высчитывание суммы композиции--}}
         </div>
 
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="col form-floating">
-                        <input class="form-control" type="number" id="compositionNumber" name="composition[0][1]">
+                        <input class="form-control" type="number" min="0" id="compositionNumber" name="composition[0][1]">
                         <label for="compositionNumber">Количество</label>
                     </div>
                     <div class="col">

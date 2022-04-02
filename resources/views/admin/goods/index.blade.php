@@ -23,11 +23,11 @@
         @foreach($goods as $item)
             <tr>
                 <td>{{$item->name}}</td>
-                <td>сделать подсчет из js</td>
+                <td>{{$item->price * (100 - $item->markup)/100}}</td>
                 <td>{{$item->markup}}</td>
                 <td>{{$item->price}}</td>
                 <td>{{$item->count_goods}}</td>
-                <td>сделать подсчет из js</td>
+                <td>{{$item->count_goods * $item->price }}</td>
                 <td><img height="30" src="{{$item->image_path}}" alt="{{$item->name}}"></td>
                 <td>
                     <form action="/admin-panel/price-calculation/composition/{{$item->id}}" method="post">
