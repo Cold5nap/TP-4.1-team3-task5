@@ -20,6 +20,6 @@
 •	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/377e73157cfa3bba0ec31734ae97a170f8b3a22b/Техническое%20задание.docx)<br>
 •	[ТЗ.pdf](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/377e73157cfa3bba0ec31734ae97a170f8b3a22b/Техническое%20задание.pdf)<br>
 •	[Курсовая](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/8eadc201c750242a527d5f7071563498437d2dca/Курсовая.docx)<br>
-•	[Схема базы данных](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/9d039f1319e8e02ba3239de461e383e7ff146795/documents/schemaDB.jpg)<br>
+•	[Схема базы данных](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/0bcb0393efa8a4ff0651433791467ff83b4b6cd7/documents/schemaDB.jpg)<br>
 
 # Сайт
