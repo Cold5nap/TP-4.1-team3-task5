@@ -19,7 +19,7 @@
 •	[Figma](https://www.figma.com/file/WP77N7u5n6KaKM3tPLNumZ/Flory_vrn?node-id=0%3A1)<br>
 •	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/377e73157cfa3bba0ec31734ae97a170f8b3a22b/Техническое%20задание.docx)<br>
 •	[ТЗ.pdf](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/377e73157cfa3bba0ec31734ae97a170f8b3a22b/Техническое%20задание.pdf)<br>
-•	[Курсовая](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/8eadc201c750242a527d5f7071563498437d2dca/Курсовая.docx)<br>
+•	[Курсовая](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/eb5447d62ad58333e1332cbfa59d9de4796fceea/documents/%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%B0%D1%8F_.docx)<br>
 •	[Схема базы данных](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/0bcb0393efa8a4ff0651433791467ff83b4b6cd7/documents/schemaDB.jpg)<br>
 
 # Сайт
