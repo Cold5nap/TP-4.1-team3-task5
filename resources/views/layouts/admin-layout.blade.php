@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield("title")</title>
 
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
     <script src="{{asset('js/preloader.js')}}"></script>
 
@@ -22,7 +22,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <div class="info">
-            <a href="/admin-panel" class="brand-link">
+            <a href="/administrator" class="brand-link">
                 <i class="bi bi-house"></i>
                 <span class="brand-text font-weight-light">Админ-панель</span>
             </a>
@@ -38,7 +38,7 @@
                 <div class="info">
                     <a href="#" class="d-block">
                         <i class="bi bi-person text-white-50"></i>
-                        {{Auth::user()->name}}
+{{--                        {{Auth::user()->name}}--}}
                     </a>
 
                 </div>
@@ -73,19 +73,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/admin-panel/order/" class="nav-link">
+                                <a href="/administrator/order/" class="nav-link">
                                     <p>Все заказы</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin-panel/order/create" class="nav-link">
+                                <a href="/administrator/order/create" class="nav-link">
                                     <i class="bi bi-plus-square"></i>
                                     <p>Добавить заказ</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item menu-close bg-gradient-dark">
+                    <li class="nav-item menu-open bg-gradient-dark">
                         <a href="#" class="nav-link">
                             <i class="bi bi-people"></i>
                             <p>
@@ -95,12 +95,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item ">
-                                <a href="/admin-panel/users/" class="nav-link">
+                                <a href="/administrator/users/" class="nav-link">
                                     <p>Все пользователи</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin-panel/user/create" class="nav-link">
+                                <a href="/administrator/user/create" class="nav-link">
                                     <i class="bi bi-plus-square"></i>
                                     <p>Добавить пользователя</p>
                                 </a>
@@ -117,40 +117,54 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/admin-panel/price-calculation" class="nav-link">
-                                    <i class="bi bi-box-seam"></i>
-                                    <i class="bi bi-flower3"></i>
-                                    <p>Товары и состав</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/admin-panel/price-calculation/goods" class="nav-link">
+                                <a href="/administrator/product" class="nav-link">
                                     <i class="bi bi-box-seam"></i>
                                     <p>Товары</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin-panel/price-calculation/goods/create" class="nav-link">
+                                <a href="/administrator/product/create" class="nav-link">
                                     <i class="bi bi-plus-square"></i>
                                     <p>Добавить товар</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin-panel/price-calculation/composition" class="nav-link">
+                                <a href="/administrator/material" class="nav-link">
                                     <i class="bi bi-flower3"></i>
                                     <p>Материалы</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/admin-panel/price-calculation/composition/create" class="nav-link">
+                                <a href="/administrator/material/create" class="nav-link">
                                     <i class="bi bi-plus-square"></i>
                                     <p>Добавить материал</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item menu-open bg-gradient-dark">
+                        <a href="#" class="nav-link">
+                            <p>
+                                <i class="bi bi-bookmark"></i>Категории
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="/administrator/category/" class="nav-link">
+                                    <p>Категории</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/administrator/category/create" class="nav-link">
+                                    <i class="bi bi-plus-square"></i>
+                                    <p>Добавить категорию</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
-                        <a href="admin-panel/users-messages" class="nav-link">
+                        <a href="/administrator/contact" class="nav-link">
                             <i class="bi bi-chat"></i>
                             <p>Сообщения пользователей</p>
                         </a>
@@ -179,8 +193,9 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    @yield('content')
+                <div id="app" class="row">
+                    <app></app>
+                    {{--@yield('content')--}}
                 </div>
                 <!-- /.row -->
             </div>
@@ -205,7 +220,7 @@
 
 <!-- REQUIRED SCRIPTS -->
 <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{mix('js/app.js')}}"></script>
 <script src="{{asset('admin/dist/js/adminlte.js')}}"></script>
 
 <!-- OPTIONAL SCRIPTS -->

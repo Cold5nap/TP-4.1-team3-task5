@@ -7,7 +7,8 @@ if (!function_exists('saveImageOnDisk')) {
 
     /**
      *  Сохраняет файл на диске, добавляя в название файла дату
-     *  и изменяя его формат на webp.
+     *  и изменяя его формат на webp. Сжатие 20%, размер 600:900, формат webp,
+     *  средний размер изображений 28кб.
      * @param $image_req - изображение из запроса
      * @param $date - дата добавления файла
      * @param string $image_number - номер изображения добавленное в одну дату
@@ -18,68 +19,36 @@ if (!function_exists('saveImageOnDisk')) {
         if ($image_number != '')
             $image_number = $image_number . '_';
         $name = $image_number . $date . '_' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
-        $newExtension = 'webp';
-        $path = '/images/' . $name . '.' . $newExtension;// относительный путь до файла
+        $path = '/images/' . $name . '.webp';// относительный путь до файла
 
         //сохраняем на диске
         \Image::make($image_req)
-            ->encode($newExtension, 20)
+            ->encode('webp', 20)
             ->fit(600, 900)
-            ->save(public_path() . $path, 20, $newExtension);
+            ->save(public_path() . $path, 20, 'webp');
 
-        return ['name'=>$name,'path'=>$path,'extension'=>$newExtension];
+        return ['name'=>$name,'path'=>$path];
     }
 }
 
-if (!function_exists('saveImageInDBAndDisk')) {
+if (!function_exists('deleteImageOnDisk')) {
 
     /**
-     *  Сохраняет файл на диске и в бд, добавляя в название файла дату
-     *  и изменяя его формат на webp.
-     * @param $image_req - изображение из запроса
-     * @param $date - дата добавления файла
-     * @param string $image_number - номер изображения добавленное в одну дату
-     * @return Image возвращает созданную в бд запись
+     * Возвращает сообщение о успешности удаления.
+     * Удаляет файл изображения на диске.
+     *
+     * @param $image_name - название файла
+     * @return string
      */
 
-    function saveImageInDBAndDisk($image_req, $date, $image_number = ''): Image
+    function deleteImageOnDisk($image_name): string
     {
-       $file = saveImageOnDisk($image_req,$date,$image_number);
-
-        // добавляем в бд изображение
-        $image = new Image();
-        $image->path = $file['path'];
-        $image->name = $file['name'];
-        $image->extension = $file['extension'];
-        $image->save();
-        return $image;
-    }
-}
-
-if (!function_exists('deleteImageInDBAndDisk')) {
-
-    /**
-     *  Удаляет файл на диске и в бд.
-     * @param $id - id - фото
-     * @return string возвращает созданную в бд запись
-     */
-
-    function deleteImageInDBAndDisk($id)
-    {
-        $message = '';
-
-        $image = Image::where('id',$id)->first();
-
-        //удалим с диска
-        if (Storage::disk('images')->exists($image->name.'.webp')){
-            Storage::disk('images')->delete($image->name.'.webp');
-            $message = "Материал успешно удален.";
+        if (Storage::disk('images')->exists($image_name.'.webp')){
+            Storage::disk('images')->delete($image_name.'.webp');
+            return "Изображение <" . $image_name . "> успешно удалено.";
         }else{
-            $message = "При удалении изображение по такому пути не найденно на диске. Удалена только запись.";
+            return "Изображение <" . $image_name . ">не найдено на диске, удалена только запись из БД.";
         }
-
-        //удалим из бд
-        $image->delete();
-        return $message;
     }
 }
+

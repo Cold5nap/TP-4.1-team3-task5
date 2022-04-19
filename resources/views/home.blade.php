@@ -3,6 +3,9 @@
 @section('title') Flori_VRN @endsection
 
 @section('content')
-    Главная страница
-    @include('inc.goods')
+    <div id="app">
+        <app></app>
+    </div>
+
+{{--    @include('inc.goods')--}}
 @endsection

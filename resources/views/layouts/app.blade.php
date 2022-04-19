@@ -1,32 +1,54 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Dashboard 3</title>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <link rel="stylesheet" href="{{asset('css/app.css')}}" >
-
-    <title>@yield("title")</title>
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
 </head>
-<body>
-<div class="bg-warning p-2 text-dark bg-opacity-10">
-    @include('inc.header')
-    <div class="container">
-        @include('inc.messages')
-        @yield("content")
-    </div>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-    @include('inc.footer')
+<div class="inner">
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">AdminLTE 3</span>
+        </a>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                asdfadfa
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+
+    </footer>
+</div>
 </div>
 
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>
