@@ -15,7 +15,7 @@
 •	[Miro](https://miro.com/app/board/uXjVOKXFtbQ=/) 
 
 # Документация
-•	[Brief](https://docs.google.com/document/d/1IJp-1C8tf-0_l_FjSb6YfyyIs4_G51yvAsvgOAiFqi4/edit?usp=sharing)<br>
+•	[Brief](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/6fa0010ea50c53406a60fb73de82fbbf1590bbc2/documents/Brief.pdf)<br>
 •	[Figma](https://www.figma.com/file/WP77N7u5n6KaKM3tPLNumZ/Flory_vrn?node-id=0%3A1)<br>
 •	[ТЗ.docx](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/70986cfb82ad770da74cead0ff0fb43816e7409e/documents/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5.docx)<br>
 •	[ТЗ.pdf](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/f1493caed6f8c8232faa99a0196b0e4f06fab801/documents/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5.pdf)<br>
