@@ -24,7 +24,7 @@ if (!function_exists('saveImageOnDisk')) {
         //сохраняем на диске
         \Image::make($image_req)
             ->encode('webp', 20)
-            ->fit(600, 900)
+            ->fit(600, 700)
             ->save(public_path() . $path, 20, 'webp');
 
         return ['name'=>$name,'path'=>$path];

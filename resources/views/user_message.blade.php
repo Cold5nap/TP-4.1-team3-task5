@@ -3,8 +3,6 @@
 @section('title') Каталог@endsection
 
 @section('content')
-
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mt-lg-4 mx-0">
             <li class="breadcrumb-item"><a href="/">Главная</a></li>
@@ -14,7 +12,7 @@
 
     <div class="container-fluid mx-lg-4 mt-lg-5 mb-lg-5">
         <div class="card" style="width: 18rem;">
-            <img class="card-img" src="/images/test.png" alt="Card image cap">
+            <img class="card-img" src="/images/1_09-04-2022_17-28-53_mist-trres-river-forest-moss-fall-long-exposure-landscape-na — копия — копия.webp" alt="Card image cap">
             <div class="card-img-overlay">
                 <p class="card-text text-white bg-warning"> Размер букета 50 см.</p>
             </div>

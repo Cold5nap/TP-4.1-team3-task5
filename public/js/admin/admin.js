@@ -3289,11 +3289,6 @@ var appLayout = new vue__WEBPACK_IMPORTED_MODULE_10__["default"]({
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
 
 try {
   window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -31592,10 +31587,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ "./resources/sass/bootstrap.scss":
-/*!***************************************!*\
-  !*** ./resources/sass/bootstrap.scss ***!
-  \***************************************/
+/***/ "./vendor/twbs/bootstrap/scss/bootstrap.scss":
+/*!***************************************************!*\
+  !*** ./vendor/twbs/bootstrap/scss/bootstrap.scss ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -52614,7 +52609,7 @@ Vue.compile = compileToFunctions;
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/admin/adminlte","css/bootstrap"], () => (__webpack_require__("./resources/js/admin.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/admin/adminlte","css/bootstrap"], () => (__webpack_require__("./resources/sass/bootstrap.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin/adminlte","css/bootstrap"], () => (__webpack_require__("./vendor/twbs/bootstrap/scss/bootstrap.scss")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin/adminlte","css/bootstrap"], () => (__webpack_require__("./resources/sass/adminlte.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
