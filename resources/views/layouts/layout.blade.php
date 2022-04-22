@@ -5,6 +5,8 @@
     <title>@yield("title")</title>
 
     <link rel="stylesheet" href="{{mix('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{mix('css/nouislider.min.css')}}">
+
 
 </head>
 <body class="sidebar-mini" style="height: auto;">

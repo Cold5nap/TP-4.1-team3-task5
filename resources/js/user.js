@@ -7,7 +7,7 @@ import Constructor from "./components/Constructor";
 import Home from "./components/home/Home";
 import Message from "./components/Message";
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import Show from "./components/Show";
 
 require('./bootstrap');
 
@@ -36,6 +36,11 @@ const router = new VueRouter({
             path:'/message',
             name:'message',
             component:Message,
+        },
+        {
+            path:'/show',
+            name:'show',
+            component:Show,
         },
 
     ]
