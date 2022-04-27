@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\admin\AdminCategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -23,7 +24,7 @@ class ProductResource extends JsonResource
             'discount'=>$this->number,
             'size'=>SizeResource::make($this->size),
             'composition'=>ProductMaterialResource::collection($this->composition),
-            'categories'=> CategoriesResource::collection($this->categories),
+            'categories'=> AdminCategoryResource::collection($this->categories),
             'mainImage'=> ImagesResource::make($this->mainImage),
         ];
     }

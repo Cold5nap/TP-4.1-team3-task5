@@ -2434,7 +2434,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteCategory: function deleteCategory(id) {
       var _this3 = this;
 
-      axios.post('/api/categories/' + id, {
+      axios.post('/api/adm/categories/' + id, {
         _method: 'DELETE'
       }).then(function (response) {
         _this3.categories = [];
@@ -2452,7 +2452,7 @@ __webpack_require__.r(__webpack_exports__);
     storeCategory: function storeCategory() {
       var _this4 = this;
 
-      axios.post('/api/categories', {
+      axios.post('/api/adm/categories', {
         name: this.name,
         parent_id: this.parent_id
       }).then(function () {
@@ -2471,7 +2471,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories() {
       var _this5 = this;
 
-      axios.get('/api/categories').then(function (response) {
+      axios.get('/api/adm/categories').then(function (response) {
         _this5.category(response.data.data);
 
         _this5.categories = response.data.data;
@@ -2698,7 +2698,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('categories_id[]', this.selectCategories[key]);
       }
 
-      axios.post('/api/materials', formData, {
+      axios.post('/api/adm/materials', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -2716,7 +2716,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.materials = [];
       this.loading = true;
-      axios.post('/api/materials/' + id, {
+      axios.post('/api/adm/materials/' + id, {
         _method: 'DELETE'
       }).then(function (response) {
         _this2.getMaterials();
@@ -2732,7 +2732,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.materials = [];
       this.loading = true;
-      axios.get('/api/materials?page=' + pageNumber).then(function (response) {
+      axios.get('/api/adm/materials?page=' + pageNumber).then(function (response) {
         _this3.setPagination(response);
 
         _this3.materials = response.data.data;
@@ -2746,7 +2746,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories() {
       var _this4 = this;
 
-      axios.get('/api/categories').then(function (response) {
+      axios.get('/api/adm/categories').then(function (response) {
         _this4.categories = response.data.data;
       })["catch"](function (error) {
         console.log(error);
@@ -3052,7 +3052,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.loadingForm = true;
-      axios.get('/api/materials?page=' + pageNumber).then(function (response) {
+      axios.get('/api/adm/materials?page=' + pageNumber).then(function (response) {
         _this.setPaginationMaterials(response);
 
         _this.materials = response.data.data;
@@ -3115,7 +3115,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('height', this.height);
       formData.append('width', this.width);
       formData.append('description', this.description);
-      axios.post('/api/products', formData, {
+      axios.post('/api/adm/products', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -3133,7 +3133,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.products = [];
       this.loading = true;
-      axios.post('/api/products/' + id, {
+      axios.post('/api/adm/products/' + id, {
         _method: 'DELETE'
       }).then(function () {
         _this3.getProducts();
@@ -3150,7 +3150,7 @@ __webpack_require__.r(__webpack_exports__);
       var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.products = [];
       this.loading = true;
-      axios.get('/api/products?page=' + pageNumber).then(function (response) {
+      axios.get('/api/adm/products?page=' + pageNumber).then(function (response) {
         _this4.setPaginationProduct(response);
 
         _this4.products = response.data.data;
@@ -3164,7 +3164,7 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories() {
       var _this5 = this;
 
-      axios.get('/api/categories').then(function (response) {
+      axios.get('/api/adm/categories').then(function (response) {
         _this5.categories = response.data.data;
       })["catch"](function (error) {
         console.log(error);

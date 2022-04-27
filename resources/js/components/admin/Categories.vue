@@ -87,7 +87,7 @@ export default {
             categoriesEl.appendChild(ul);
         },
         deleteCategory(id){
-            axios.post('/api/categories/'+id,{
+            axios.post('/api/adm/categories/'+id,{
                 _method:'DELETE'
             })
                 .then(response => {
@@ -102,7 +102,7 @@ export default {
                 .finally(()=>this.loading = false)
         },
         storeCategory(){
-            axios.post('/api/categories',{
+            axios.post('/api/adm/categories',{
                 name:this.name,
                 parent_id:this.parent_id,
             })
@@ -118,7 +118,7 @@ export default {
                 .finally(()=>this.loading = false)
         },
         getCategories(){
-            axios.get('/api/categories')
+            axios.get('/api/adm/categories')
                 .then(response => {
                     this.category(response.data.data)
                     this.categories = response.data.data

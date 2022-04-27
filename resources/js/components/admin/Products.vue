@@ -254,7 +254,7 @@ export default {
         },
         getMaterials(pageNumber = 1) {
             this.loadingForm = true;
-            axios.get('/api/materials?page=' + pageNumber)
+            axios.get('/api/adm/materials?page=' + pageNumber)
                 .then(response => {
                     this.setPaginationMaterials(response)
                     this.materials = response.data.data
@@ -313,7 +313,7 @@ export default {
             formData.append('width', this.width);
             formData.append('description', this.description);
 
-            axios.post('/api/products', formData,
+            axios.post('/api/adm/products', formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -331,7 +331,7 @@ export default {
         deleteProduct(id) {
             this.products = [];
             this.loading = true;
-            axios.post('/api/products/' + id, {
+            axios.post('/api/adm/products/' + id, {
                 _method: 'DELETE'
             })
                 .then(() => {
@@ -346,7 +346,7 @@ export default {
         getProducts(pageNumber = 1) {
             this.products = []
             this.loading = true
-            axios.get('/api/products?page=' + pageNumber)
+            axios.get('/api/adm/products?page=' + pageNumber)
                 .then(response => {
                     this.setPaginationProduct(response)
                     this.products = response.data.data
@@ -358,7 +358,7 @@ export default {
                 .finally(() => this.loading = false)
         },
         getCategories() {
-            axios.get('/api/categories')
+            axios.get('/api/adm/categories')
                 .then(response => {
                     this.categories = response.data.data
                 })

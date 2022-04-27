@@ -24,7 +24,7 @@
                 <!--фильтр по категориям-->
                 <ul class="list-unstyled mb-0 py-3 pt-md-1">
                     <CategoryFilter v-for="(category,index) in categories" :key="index" :category="category"
-                                    v-model="selectedCategories" @input="pr"></CategoryFilter>
+                                    v-model="selectedCategories" @input="getProductByCategory()"></CategoryFilter>
                 </ul>
             </div>
 
@@ -33,33 +33,45 @@
                 <!--Сортировка-->
                 <div class="col mx-2">
                     <b>Сортировка по:</b>
-
-                    <span style="cursor: pointer" @click="isNewestDate=!isNewestDate">
+                    <span style="cursor: pointer" @click="setDateOrder">
                         дате добавления
-                    <i class="bi bi-arrow-up" v-if="isNewestDate"></i>
-                    <i class="bi bi-arrow-down" v-if="!isNewestDate"></i>
+                    <i class="bi bi-arrow-up" v-if="orderBy==='created_at'&&orderByType==='asc'"></i>
+                    <i class="bi bi-arrow-down" v-if="orderBy==='created_at'&&orderByType==='desc'"></i>
                         ,
                     </span>
-
-                    <span style="cursor: pointer" @click="isIncreasePriceSort=!isIncreasePriceSort">
+                    <span style="cursor: pointer" @click="setPriceOrder">
                         цене
-                    <i class="bi bi-arrow-up" v-if="isIncreasePriceSort"></i>
-                    <i class="bi bi-arrow-down" v-if="!isIncreasePriceSort"></i>
+                    <i class="bi bi-arrow-up" v-if="orderBy==='price'&&orderByType==='asc'"></i>
+                    <i class="bi bi-arrow-down" v-if="orderBy==='price'&&orderByType==='desc'"></i>
                     </span>
-
-
                 </div>
+
                 <main class="row row-cols-1 row-cols-md-3 g-4 m-0">
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
+                    <Card v-for="(product,index) in products" :key="index" :product="product"></Card>
+                    <!--спинер загрузки товаров-->
+                    <div class="text-center" v-if="loading">
+                        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                            <span class="sr-only">Загрузка...</span>
+                        </div>
+                    </div>
                 </main>
+                <div class="m-2 justify-content-center">
+                    <paginate
+                        v-model="currentPageProduct"
+                        :page-count="lastPageProduct"
+                        :click-handler="getProductByCategory"
+                        :prev-text="'Предыдущая'"
+                        :next-text="'Следующая'"
+                        :container-class="'pagination'"
+                        :page-class="'page-item'"
+                        :page-link-class="'page-link'"
+                        :prev-link-class="'page-link'"
+                        :next-link-class="'page-link'"
+                    >
+                    </paginate>
+                </div>
             </div>
-
         </div>
-
-
     </div>
 </template>
 
@@ -72,45 +84,108 @@ import noUiSlider from "../../nouislider.min"
 export default {
     data() {
         return {
-            isIncreasePriceSort:true,
-            isNewestDate:true,
-            startPrice:300,
-            endPrice:3000,
+            loading:true,
+            startPrice:0,
+            endPrice:10000,
             selectedCategories: [],
-            categories: [
-                {name: 'cat1', id: 1, subcategories: [{name: 'cate5', id: 5}, {name: 'cate6', id: 6}]},
-                {name: 'cat2', id: 2, subcategories: [{name: 'cate7', id: 7}, {name: 'cate8', id: 8}]},
-                {name: 'cat3', id: 3, subcategories: [{name: 'cate9', id: 9}, {name: 'cate10', id: 10}]},
-                {name: 'cat4', id: 4, subcategories: [{name: 'cate12', id: 12}, {name: 'cate11', id: 11}]},
-            ]
+            categories: [],
+            products:[],
+            currentPageProduct:0,
+            lastPageProduct:1,
+            orderBy:'created_at',
+            orderByType:'desc',
         }
     },
     methods: {
+        setDateOrder(){
+            this.orderBy = 'created_at'
+            if (this.orderByType==='desc'){
+                this.orderByType='asc';
+            }else {
+                this.orderByType='desc';
+            }
+            this.getProductByCategory()
+        },
+        setPriceOrder(){
+            this.orderBy = 'price'
+            if (this.orderByType==='desc'){
+                this.orderByType='asc';
+            }else {
+                this.orderByType='desc';
+            }
+            this.getProductByCategory()
+        },
         setStartPriceSlider(){
             document.getElementById('slider').noUiSlider.set([this.startPrice, null]);
+            this.getProductByCategory()
         },
         setEndPriceSlider(){
             document.getElementById('slider').noUiSlider.set([null, this.endPrice]);
+            this.getProductByCategory()
         },
-        slider() {
+        setSlider() {
             let slider = document.getElementById('slider');
 
             noUiSlider.create(slider, {
-                start: [300, 3000],
+                start: [this.startPrice, this.endPrice],
                 connect: true,
                 range: {
-                    'min': 0,
-                    'max': 3000
+                    'min': this.startPrice,
+                    'max': this.endPrice
                 }
             })
             slider.noUiSlider.on('change',values => {
                 this.startPrice = Math.round(Number(values[0]))
                 this.endPrice = Math.round(Number(values[1]))
+                this.getProductByCategory()
             });
         },
-        pr() {
-            console.log(this.selectedCategories)
-        }
+        setPaginationProduct(response) {
+            this.currentPageProduct = response.data.meta.current_page;
+            this.lastPageProduct = response.data.meta.last_page;
+        },
+        getProductByCategory(pageNumber = 1) {
+            this.products = []
+            this.loading = true
+            let url='/api/product?page=' + pageNumber;
+            for (let key in this.selectedCategories){
+                url+='&categories[]='+this.selectedCategories[key];
+            }
+            if (this.startPrice!=null){
+                url+='&start_price='+this.startPrice
+            }
+            if (this.endPrice!=null){
+                url+='&end_price='+this.endPrice
+            }
+            if (this.orderBy!=null){
+                url+='&order_by='+this.orderBy
+            }
+            if (this.orderByType!=null){
+                url+='&order_by_type='+this.orderByType
+            }
+            axios.get(url)
+                .then(response => {
+                    this.setPaginationProduct(response)
+                    this.products = response.data.data
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
+        },
+        getCategories() {
+            axios.get('/api/category')
+                .then(response => {
+                    this.categories = response.data
+
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
+        },
     },
     components: {
         Carousel,
@@ -118,7 +193,9 @@ export default {
         CategoryFilter,
     },
     mounted() {
-        this.slider();
+        this.getProductByCategory();
+        this.setSlider();
+        this.getCategories();
     }
 }
 </script>

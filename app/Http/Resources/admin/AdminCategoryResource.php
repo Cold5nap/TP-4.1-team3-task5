@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\admin;
 
-use App\Http\Resources\admin\AdminCategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoriesResource extends JsonResource
+class AdminCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +16,8 @@ class CategoriesResource extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'parent_id'=>$this->parent_id,
             'name'=>$this->name,
-            'child_categories'=>self::collection($this->categories)
         ];
     }
 }

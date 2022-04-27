@@ -152,7 +152,7 @@ export default {
             for (let key in this.selectCategories) {
                 formData.append('categories_id[]', this.selectCategories[key]);
             }
-            axios.post('/api/materials', formData,
+            axios.post('/api/adm/materials', formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -170,7 +170,7 @@ export default {
         deleteMaterial(id) {
             this.materials = [];
             this.loading = true;
-            axios.post('/api/materials/'+id,{
+            axios.post('/api/adm/materials/'+id,{
                 _method:'DELETE'
             })
                 .then(response => {
@@ -185,7 +185,7 @@ export default {
         getMaterials(pageNumber) {
             this.materials = []
             this.loading = true
-            axios.get('/api/materials?page='+pageNumber)
+            axios.get('/api/adm/materials?page='+pageNumber)
                 .then(response => {
                     this.setPagination(response)
                     this.materials = response.data.data
@@ -197,7 +197,7 @@ export default {
                 .finally(() => this.loading = false)
         },
         getCategories() {
-            axios.get('/api/categories')
+            axios.get('/api/adm/categories')
                 .then(response => {
                     this.categories = response.data.data
                 })

@@ -2523,8 +2523,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Card"
+  name: "Card",
+  props: {
+    product: Object
+  }
 });
 
 /***/ }),
@@ -2601,8 +2606,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -2734,6 +2737,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2741,80 +2756,122 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      isIncreasePriceSort: true,
-      isNewestDate: true,
-      startPrice: 300,
-      endPrice: 3000,
+      loading: true,
+      startPrice: 0,
+      endPrice: 10000,
       selectedCategories: [],
-      categories: [{
-        name: 'cat1',
-        id: 1,
-        subcategories: [{
-          name: 'cate5',
-          id: 5
-        }, {
-          name: 'cate6',
-          id: 6
-        }]
-      }, {
-        name: 'cat2',
-        id: 2,
-        subcategories: [{
-          name: 'cate7',
-          id: 7
-        }, {
-          name: 'cate8',
-          id: 8
-        }]
-      }, {
-        name: 'cat3',
-        id: 3,
-        subcategories: [{
-          name: 'cate9',
-          id: 9
-        }, {
-          name: 'cate10',
-          id: 10
-        }]
-      }, {
-        name: 'cat4',
-        id: 4,
-        subcategories: [{
-          name: 'cate12',
-          id: 12
-        }, {
-          name: 'cate11',
-          id: 11
-        }]
-      }]
+      categories: [],
+      products: [],
+      currentPageProduct: 0,
+      lastPageProduct: 1,
+      orderBy: 'created_at',
+      orderByType: 'desc'
     };
   },
   methods: {
+    setDateOrder: function setDateOrder() {
+      this.orderBy = 'created_at';
+
+      if (this.orderByType === 'desc') {
+        this.orderByType = 'asc';
+      } else {
+        this.orderByType = 'desc';
+      }
+
+      this.getProductByCategory();
+    },
+    setPriceOrder: function setPriceOrder() {
+      this.orderBy = 'price';
+
+      if (this.orderByType === 'desc') {
+        this.orderByType = 'asc';
+      } else {
+        this.orderByType = 'desc';
+      }
+
+      this.getProductByCategory();
+    },
     setStartPriceSlider: function setStartPriceSlider() {
       document.getElementById('slider').noUiSlider.set([this.startPrice, null]);
+      this.getProductByCategory();
     },
     setEndPriceSlider: function setEndPriceSlider() {
       document.getElementById('slider').noUiSlider.set([null, this.endPrice]);
+      this.getProductByCategory();
     },
-    slider: function slider() {
+    setSlider: function setSlider() {
       var _this = this;
 
       var slider = document.getElementById('slider');
       _nouislider_min__WEBPACK_IMPORTED_MODULE_3___default().create(slider, {
-        start: [300, 3000],
+        start: [this.startPrice, this.endPrice],
         connect: true,
         range: {
-          'min': 0,
-          'max': 3000
+          'min': this.startPrice,
+          'max': this.endPrice
         }
       });
       slider.noUiSlider.on('change', function (values) {
         _this.startPrice = Math.round(Number(values[0]));
         _this.endPrice = Math.round(Number(values[1]));
+
+        _this.getProductByCategory();
       });
     },
-    pr: function pr() {
-      console.log(this.selectedCategories);
+    setPaginationProduct: function setPaginationProduct(response) {
+      this.currentPageProduct = response.data.meta.current_page;
+      this.lastPageProduct = response.data.meta.last_page;
+    },
+    getProductByCategory: function getProductByCategory() {
+      var _this2 = this;
+
+      var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.products = [];
+      this.loading = true;
+      var url = '/api/product?page=' + pageNumber;
+
+      for (var key in this.selectedCategories) {
+        url += '&categories[]=' + this.selectedCategories[key];
+      }
+
+      if (this.startPrice != null) {
+        url += '&start_price=' + this.startPrice;
+      }
+
+      if (this.endPrice != null) {
+        url += '&end_price=' + this.endPrice;
+      }
+
+      if (this.orderBy != null) {
+        url += '&order_by=' + this.orderBy;
+      }
+
+      if (this.orderByType != null) {
+        url += '&order_by_type=' + this.orderByType;
+      }
+
+      axios.get(url).then(function (response) {
+        _this2.setPaginationProduct(response);
+
+        _this2.products = response.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.errored = true;
+      })["finally"](function () {
+        return _this2.loading = false;
+      });
+    },
+    getCategories: function getCategories() {
+      var _this3 = this;
+
+      axios.get('/api/category').then(function (response) {
+        _this3.categories = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+        _this3.errored = true;
+      })["finally"](function () {
+        return _this3.loading = false;
+      });
     }
   },
   components: {
@@ -2823,7 +2880,9 @@ __webpack_require__.r(__webpack_exports__);
     CategoryFilter: _CategoryFilter__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    this.slider();
+    this.getProductByCategory();
+    this.setSlider();
+    this.getCategories();
   }
 });
 
@@ -44309,14 +44368,14 @@ var render = function () {
         "router-link",
         {
           staticClass: "text-decoration-none text-black card-link",
-          attrs: { to: { name: "show" } },
+          attrs: { to: { path: "/product/" + _vm.product.id } },
         },
         [
           _c("img", {
             staticClass: "card-img ",
             attrs: {
-              src: "/images/1_20-04-2022_19-29-30_mist-trres-river-forest-moss-fall-long-exposure-landscape-na — копия — копия.webp",
-              alt: "Card image cap",
+              src: _vm.product.mainImage.path,
+              alt: _vm.product.mainImage.name,
             },
           }),
           _vm._v(" "),
@@ -44324,7 +44383,7 @@ var render = function () {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col text-start" }, [
                 _c("small", { staticClass: " badge rounded-pill bg-danger " }, [
-                  _vm._v("Скидка 50%"),
+                  _vm._v(_vm._s(_vm.product.discount) + "%"),
                 ]),
               ]),
               _vm._v(" "),
@@ -44333,7 +44392,11 @@ var render = function () {
                   "small",
                   { staticClass: "badge bg-black opacity-75 rounded" },
                   [
-                    _vm._v("\n            50см\n            "),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.product.size.height) +
+                        "см.\n                        "
+                    ),
                     _c("i", { staticClass: "bi bi-arrow-left-right" }),
                   ]
                 ),
@@ -44344,7 +44407,11 @@ var render = function () {
                   "small",
                   { staticClass: "bottom badge bg-black opacity-75 rounded" },
                   [
-                    _vm._v("50см\n            "),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.product.size.width) +
+                        "см.\n                        "
+                    ),
                     _c("i", { staticClass: "bi bi-arrow-down-up" }),
                   ]
                 ),
@@ -44362,18 +44429,41 @@ var render = function () {
             "router-link",
             {
               staticClass: "text-decoration-none text-black card-link",
-              attrs: { to: { name: "show" } },
+              attrs: { to: { path: "/product/" + _vm.product.id } },
             },
             [
               _c("h5", { staticClass: "text-center" }, [
-                _vm._v("Название\n      карточки"),
+                _vm._v(
+                  "\n            " + _vm._s(_vm.product.name) + "\n        "
+                ),
               ]),
             ]
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "span",
+              {
+                staticClass:
+                  "col mx-2 text-start text-muted card-text text-decoration-line-through",
+              },
+              [
+                _vm._v(
+                  _vm._s(
+                    Math.round(
+                      (_vm.product.price * 100) / (100 - _vm.product.discount)
+                    )
+                  ) + "руб."
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c("b", { staticClass: "col mx-2 text-end card-text " }, [
+              _vm._v(_vm._s(_vm.product.price) + " руб."),
+            ]),
+          ]),
           _vm._v(" "),
-          _vm._m(1),
+          _vm._m(0),
         ],
         1
       ),
@@ -44382,25 +44472,6 @@ var render = function () {
   )
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "span",
-        {
-          staticClass:
-            "col mx-2 text-start text-muted card-text text-decoration-line-through",
-        },
-        [_vm._v("700 р.")]
-      ),
-      _vm._v(" "),
-      _c("b", { staticClass: "col mx-2 text-end card-text " }, [
-        _vm._v("700 р."),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -44417,7 +44488,7 @@ var staticRenderFns = [
           staticClass: "btn btn-warning text-dark container-fluid mx-2",
           attrs: { type: "submit" },
         },
-        [_vm._v(" В\n        корзину\n      ")]
+        [_vm._v(" В\n                корзину\n            ")]
       ),
     ])
   },
@@ -44646,7 +44717,7 @@ var render = function () {
         _c(
           "ul",
           { staticClass: "list-unstyled small" },
-          _vm._l(_vm.category.subcategories, function (subcategory) {
+          _vm._l(_vm.category.child_categories, function (subcategory) {
             return _c("li", { staticClass: "m-2 mx-3 " }, [
               _c("input", {
                 directives: [
@@ -44819,7 +44890,11 @@ var render = function () {
                 return _c("CategoryFilter", {
                   key: index,
                   attrs: { category: category },
-                  on: { input: _vm.pr },
+                  on: {
+                    input: function ($event) {
+                      return _vm.getProductByCategory()
+                    },
+                  },
                   model: {
                     value: _vm.selectedCategories,
                     callback: function ($$v) {
@@ -44842,21 +44917,17 @@ var render = function () {
               "span",
               {
                 staticStyle: { cursor: "pointer" },
-                on: {
-                  click: function ($event) {
-                    _vm.isNewestDate = !_vm.isNewestDate
-                  },
-                },
+                on: { click: _vm.setDateOrder },
               },
               [
                 _vm._v(
                   "\n                    дате добавления\n                "
                 ),
-                _vm.isNewestDate
+                _vm.orderBy === "created_at" && _vm.orderByType === "asc"
                   ? _c("i", { staticClass: "bi bi-arrow-up" })
                   : _vm._e(),
                 _vm._v(" "),
-                !_vm.isNewestDate
+                _vm.orderBy === "created_at" && _vm.orderByType === "desc"
                   ? _c("i", { staticClass: "bi bi-arrow-down" })
                   : _vm._e(),
                 _vm._v("\n                    ,\n                "),
@@ -44867,19 +44938,15 @@ var render = function () {
               "span",
               {
                 staticStyle: { cursor: "pointer" },
-                on: {
-                  click: function ($event) {
-                    _vm.isIncreasePriceSort = !_vm.isIncreasePriceSort
-                  },
-                },
+                on: { click: _vm.setPriceOrder },
               },
               [
                 _vm._v("\n                    цене\n                "),
-                _vm.isIncreasePriceSort
+                _vm.orderBy === "price" && _vm.orderByType === "asc"
                   ? _c("i", { staticClass: "bi bi-arrow-up" })
                   : _vm._e(),
                 _vm._v(" "),
-                !_vm.isIncreasePriceSort
+                _vm.orderBy === "price" && _vm.orderByType === "desc"
                   ? _c("i", { staticClass: "bi bi-arrow-down" })
                   : _vm._e(),
               ]
@@ -44890,13 +44957,41 @@ var render = function () {
             "main",
             { staticClass: "row row-cols-1 row-cols-md-3 g-4 m-0" },
             [
-              _c("Card"),
+              _vm._l(_vm.products, function (product, index) {
+                return _c("Card", { key: index, attrs: { product: product } })
+              }),
               _vm._v(" "),
-              _c("Card"),
-              _vm._v(" "),
-              _c("Card"),
-              _vm._v(" "),
-              _c("Card"),
+              _vm.loading
+                ? _c("div", { staticClass: "text-center" }, [_vm._m(0)])
+                : _vm._e(),
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "m-2 justify-content-center" },
+            [
+              _c("paginate", {
+                attrs: {
+                  "page-count": _vm.lastPageProduct,
+                  "click-handler": _vm.getProductByCategory,
+                  "prev-text": "Предыдущая",
+                  "next-text": "Следующая",
+                  "container-class": "pagination",
+                  "page-class": "page-item",
+                  "page-link-class": "page-link",
+                  "prev-link-class": "page-link",
+                  "next-link-class": "page-link",
+                },
+                model: {
+                  value: _vm.currentPageProduct,
+                  callback: function ($$v) {
+                    _vm.currentPageProduct = $$v
+                  },
+                  expression: "currentPageProduct",
+                },
+              }),
             ],
             1
           ),
@@ -44906,7 +45001,22 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "spinner-border",
+        staticStyle: { width: "5rem", height: "5rem" },
+        attrs: { role: "status" },
+      },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Загрузка...")])]
+    )
+  },
+]
 render._withStripped = true
 
 

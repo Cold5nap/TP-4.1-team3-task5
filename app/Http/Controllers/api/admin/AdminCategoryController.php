@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoriesRequest;
-use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\admin\AdminCategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class AdminCategoryController extends Controller
     public function index()
     {
         //сделать пагинацию
-        return CategoriesResource::collection(Category::all());
+        return AdminCategoryResource::collection(Category::all());
     }
 
 
@@ -23,7 +23,7 @@ class AdminCategoryController extends Controller
         $category->name = $request->input('name');
         $category->parent_id = $request->input('parent_id');
         $category->save();
-        return CategoriesResource::make($category);
+        return AdminCategoryResource::make($category);
     }
 
 

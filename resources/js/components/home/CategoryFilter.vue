@@ -10,13 +10,11 @@
 
         <div class="collapse" :id="'cat-id'+category.id">
             <ul class="list-unstyled small">
-                <li class="m-2 mx-3 " v-for="subcategory in category.subcategories">
+                <li class="m-2 mx-3 " v-for="subcategory in category.child_categories">
                     <input  type="checkbox" v-model="checked" :value="subcategory.id" autocomplete="off"
                            @change="onInput1" :id="'checkbox-id'+subcategory.id">
                     <label :for="'checkbox-id'+subcategory.id">{{ subcategory.name }}</label><br>
-
                 </li>
-
             </ul>
         </div>
     </li>

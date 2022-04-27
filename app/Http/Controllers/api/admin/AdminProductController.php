@@ -15,7 +15,10 @@ class AdminProductController extends Controller
 {
     public function index()
     {
-        return ProductResource::collection(Product::orderBy("id")->paginate(40));
+        return ProductResource::collection(
+            Product::with('size','composition','categories','mainImage')
+                ->orderBy("created_at",'desc')
+                ->paginate(40));
     }
 
     public function create()
