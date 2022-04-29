@@ -12,7 +12,7 @@ if (!function_exists('saveImageOnDisk')) {
      * @param $image_req - изображение из запроса
      * @param $date - дата добавления файла
      * @param string $image_number - номер изображения добавленное в одну дату
-     * return array (название, путь, расширение файла)
+     * return array (название, путь)
      */
     function saveImageOnDisk($image_req, $date, $image_number = '')
     {

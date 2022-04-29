@@ -12,9 +12,26 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     /**
-     * Возвращает json фильтрованных и отсортированных записей.
-     * @param Request $request
-     * @return mixed
+     * @OA\Get(
+     *     path="/api/product",
+     *     tags={"product"},
+     *     summary="Returns sorted products",
+     *     description="Returns ...",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(
+     *             @OA\AdditionalProperties(
+     *                 type="integer",
+     *                 format="int32"
+     *             )
+     *         )
+     *     ),
+     *     security={
+     *         {"api_key": {}}
+     *     }
+     * )
      */
     public function index(Request $request)
     {
