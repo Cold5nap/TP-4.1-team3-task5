@@ -12,7 +12,7 @@
 
 # Сервисы для работы
 •	[Trello](https://trello.com/b/Nqp99d2G/florivrn) <br>
-•	[Miro](https://miro.com/app/board/uXjVOKXFtbQ=/) 
+•	[Miro](https://miro.com/app/board/uXjVOKXFtbQ=/) <br>
 •	[Figma](https://www.figma.com/file/WP77N7u5n6KaKM3tPLNumZ/Flory_vrn?node-id=0%3A1)<br>
 •	[Файл с прокоментированными путями swagger](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/83df027d5257cf8e1a0a7acae0059c191839cb96/storage/api-docs/api-docs.json)<br>
 
