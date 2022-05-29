@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\admin\AdminCategoryResource;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MaterialResource extends JsonResource
@@ -21,7 +21,7 @@ class MaterialResource extends JsonResource
             'price'=>$this->price,
             'number'=>$this->number,
             'image'=> ImagesResource::make($this->image),
-            'categories'=> AdminCategoryResource::collection($this->categories),
+            'categories'=> CategoryResource::collection($this->categories),
         ];
     }
 }

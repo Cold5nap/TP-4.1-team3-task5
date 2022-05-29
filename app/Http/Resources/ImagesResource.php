@@ -18,6 +18,7 @@ class ImagesResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'path'=>$this->path,
+            'isMain'=>$this->is_main,
         ];
     }
 }

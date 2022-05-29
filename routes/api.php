@@ -21,4 +21,5 @@ Route::/*middleware(['role:admin'])->*/prefix('adm')->group(function () {
 
 Route::get('/category',[CategoryController::class,'index']);
 Route::get('/product',[ProductController::class,'index']);
+Route::get('/product/{id}',[ProductController::class,'show']);
 

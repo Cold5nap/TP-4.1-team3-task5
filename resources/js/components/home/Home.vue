@@ -2,7 +2,7 @@
     <div class="container-xxl my-md-4 bd-layout">
         <Carousel></Carousel>
         <div class="d-flex p-3">
-            <div class="m-2 rounded shadow"  style="background: #F2EDED;min-width:200px">
+            <div class="m-2 rounded shadow" style="background: #F2EDED;min-width:200px">
                 <h4 class="m-2 mx-3">Фильтр</h4>
 
                 <!--фильтр цен-->
@@ -12,42 +12,41 @@
                     <div class="">
                         <label for="start">От</label>
                         <input class="form-control" type="text" id="start" v-model="startPrice"
-                               @change="setStartPriceSlider">
+                            @change="setStartPriceSlider">
                     </div>
                     <div class="">
                         <label for="end">До</label>
-                        <input class="form-control" type="text" id="end" v-model="endPrice"
-                               @change="setEndPriceSlider">
+                        <input class="form-control" type="text" id="end" v-model="endPrice" @change="setEndPriceSlider">
                     </div>
                 </div>
 
                 <!--фильтр по категориям-->
                 <ul class="list-unstyled mb-0 py-3 pt-md-1">
-                    <CategoryFilter v-for="(category,index) in categories" :key="index" :category="category"
-                                    v-model="selectedCategories" @input="getProductByCategory()"></CategoryFilter>
+                    <CategoryFilter v-for="(category, index) in categories" :key="index" :category="category"
+                        v-model="selectedCategories" @input="getProductByCategory()"></CategoryFilter>
                 </ul>
             </div>
 
             <!--карточки товаров-->
-            <div class="row" >
+            <div class="row">
                 <!--Сортировка-->
                 <div class="col mx-2">
                     <b>Сортировка по:</b>
                     <span style="cursor: pointer" @click="setDateOrder">
                         дате добавления
-                    <i class="bi bi-arrow-up" v-if="orderBy==='created_at'&&orderByType==='asc'"></i>
-                    <i class="bi bi-arrow-down" v-if="orderBy==='created_at'&&orderByType==='desc'"></i>
+                        <i class="bi bi-arrow-up" v-if="orderBy === 'created_at' && orderByType === 'asc'"></i>
+                        <i class="bi bi-arrow-down" v-if="orderBy === 'created_at' && orderByType === 'desc'"></i>
                         ,
                     </span>
                     <span style="cursor: pointer" @click="setPriceOrder">
                         цене
-                    <i class="bi bi-arrow-up" v-if="orderBy==='price'&&orderByType==='asc'"></i>
-                    <i class="bi bi-arrow-down" v-if="orderBy==='price'&&orderByType==='desc'"></i>
+                        <i class="bi bi-arrow-up" v-if="orderBy === 'price' && orderByType === 'asc'"></i>
+                        <i class="bi bi-arrow-down" v-if="orderBy === 'price' && orderByType === 'desc'"></i>
                     </span>
                 </div>
 
                 <main class="row row-cols-1 row-cols-md-3 g-4 m-0">
-                    <Card v-for="(product,index) in products" :key="index" :product="product"></Card>
+                    <Card v-for="(product, index) in products" :key="index" :product="product"></Card>
                     <!--спинер загрузки товаров-->
                     <div class="text-center" v-if="loading">
                         <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
@@ -56,18 +55,10 @@
                     </div>
                 </main>
                 <div class="m-2 justify-content-center">
-                    <paginate
-                        v-model="currentPageProduct"
-                        :page-count="lastPageProduct"
-                        :click-handler="getProductByCategory"
-                        :prev-text="'Предыдущая'"
-                        :next-text="'Следующая'"
-                        :container-class="'pagination'"
-                        :page-class="'page-item'"
-                        :page-link-class="'page-link'"
-                        :prev-link-class="'page-link'"
-                        :next-link-class="'page-link'"
-                    >
+                    <paginate v-model="currentPageProduct" :page-count="lastPageProduct"
+                        :click-handler="getProductByCategory" :prev-text="'Предыдущая'" :next-text="'Следующая'"
+                        :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
+                        :prev-link-class="'page-link'" :next-link-class="'page-link'">
                     </paginate>
                 </div>
             </div>
@@ -84,42 +75,42 @@ import noUiSlider from "../../nouislider.min"
 export default {
     data() {
         return {
-            loading:true,
-            startPrice:0,
-            endPrice:10000,
+            loading: true,
+            startPrice: 0,
+            endPrice: 10000,
             selectedCategories: [],
             categories: [],
-            products:[],
-            currentPageProduct:0,
-            lastPageProduct:1,
-            orderBy:'created_at',
-            orderByType:'desc',
+            products: [],
+            currentPageProduct: 0,
+            lastPageProduct: 1,
+            orderBy: 'created_at',
+            orderByType: 'desc',
         }
     },
     methods: {
-        setDateOrder(){
+        setDateOrder() {
             this.orderBy = 'created_at'
-            if (this.orderByType==='desc'){
-                this.orderByType='asc';
-            }else {
-                this.orderByType='desc';
+            if (this.orderByType === 'desc') {
+                this.orderByType = 'asc';
+            } else {
+                this.orderByType = 'desc';
             }
             this.getProductByCategory()
         },
-        setPriceOrder(){
+        setPriceOrder() {
             this.orderBy = 'price'
-            if (this.orderByType==='desc'){
-                this.orderByType='asc';
-            }else {
-                this.orderByType='desc';
+            if (this.orderByType === 'desc') {
+                this.orderByType = 'asc';
+            } else {
+                this.orderByType = 'desc';
             }
             this.getProductByCategory()
         },
-        setStartPriceSlider(){
+        setStartPriceSlider() {
             document.getElementById('slider').noUiSlider.set([this.startPrice, null]);
             this.getProductByCategory()
         },
-        setEndPriceSlider(){
+        setEndPriceSlider() {
             document.getElementById('slider').noUiSlider.set([null, this.endPrice]);
             this.getProductByCategory()
         },
@@ -134,7 +125,7 @@ export default {
                     'max': this.endPrice
                 }
             })
-            slider.noUiSlider.on('change',values => {
+            slider.noUiSlider.on('change', values => {
                 this.startPrice = Math.round(Number(values[0]))
                 this.endPrice = Math.round(Number(values[1]))
                 this.getProductByCategory()
@@ -147,21 +138,21 @@ export default {
         getProductByCategory(pageNumber = 1) {
             this.products = []
             this.loading = true
-            let url='/api/product?page=' + pageNumber;
-            for (let key in this.selectedCategories){
-                url+='&categories[]='+this.selectedCategories[key];
+            let url = '/api/product?page=' + pageNumber;
+            for (let key in this.selectedCategories) {
+                url += '&categories[]=' + this.selectedCategories[key];
             }
-            if (this.startPrice!=null){
-                url+='&start_price='+this.startPrice
+            if (this.startPrice != null) {
+                url += '&start_price=' + this.startPrice
             }
-            if (this.endPrice!=null){
-                url+='&end_price='+this.endPrice
+            if (this.endPrice != null) {
+                url += '&end_price=' + this.endPrice
             }
-            if (this.orderBy!=null){
-                url+='&order_by='+this.orderBy
+            if (this.orderBy != null) {
+                url += '&order_by=' + this.orderBy
             }
-            if (this.orderByType!=null){
-                url+='&order_by_type='+this.orderByType
+            if (this.orderByType != null) {
+                url += '&order_by_type=' + this.orderByType
             }
             axios.get(url)
                 .then(response => {

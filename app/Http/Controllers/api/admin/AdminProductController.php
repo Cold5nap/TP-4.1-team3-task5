@@ -126,7 +126,9 @@ class AdminProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return ProductResource::make(
+            Product::with('size','composition','categories','images')
+                ->find($id));
     }
 
     /**

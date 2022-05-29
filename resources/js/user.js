@@ -6,8 +6,9 @@ import Contact from "./components/Contact";
 import Constructor from "./components/Constructor";
 import Home from "./components/home/Home";
 import Message from "./components/Message";
+import Basket from "./components/Basket";
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import Show from "./components/Show";
+import Product from "./components/Product";
 
 require('./bootstrap');
 
@@ -15,39 +16,44 @@ Vue.component('paginate', Paginate)
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode:'history',
-    routes:[
+    mode: 'history',
+    routes: [
         {
-            path:'/',
-            name:'home',
-            component:Home,
+            path: '/',
+            name: 'home',
+            component: Home,
         },
         {
-            path:'/contact',
-            name:'contact',
-            component:Contact,
+            path: '/contact',
+            name: 'contact',
+            component: Contact,
         },
         {
-            path:'/constructor',
-            name:'constructor',
-            component:Constructor,
+            path: '/constructor',
+            name: 'constructor',
+            component: Constructor,
         },
         {
-            path:'/message',
-            name:'message',
-            component:Message,
+            path: '/message',
+            name: 'message',
+            component: Message,
         },
         {
-            path:'/show',
-            name:'show',
-            component:Show,
+            path: '/product/:id',
+            name: 'product',
+            component: Product,
+        },
+        {
+            path: '/basket',
+            name: 'basket',
+            component: Basket,
         },
 
     ]
 })
 
 const appLayout = new Vue({
-    el:'#layout',
-    components:{Layout},
+    el: '#layout',
+    components: { Layout },
     router
 })

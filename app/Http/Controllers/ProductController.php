@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ShowProductResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Category_product;
@@ -60,5 +61,9 @@ class ProductController extends Controller
                 ->whereBetween('price', [$startPrice, $endPrice])
                 ->orderBy($orderBy, $orderByType)
                 ->paginate(40));
+    }
+
+    public function show($id){
+        return ShowProductResource::make(Product::with('images','size')->find($id));
     }
 }
