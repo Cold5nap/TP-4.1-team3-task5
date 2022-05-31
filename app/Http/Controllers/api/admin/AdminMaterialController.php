@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MaterialStoreRequest;
-use App\Http\Resources\admin\AdminCategoryResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\MaterialResource;
 use App\Models\Category;
 use App\Models\Material;
@@ -24,7 +24,7 @@ class AdminMaterialController extends Controller
 
     public function create()
     {
-        return AdminCategoryResource::collection(Category::all());
+        return CategoryResource::collection(Category::all());
     }
 
     public function store(MaterialStoreRequest $request)

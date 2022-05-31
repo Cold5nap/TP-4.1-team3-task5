@@ -4,14 +4,14 @@
 
         <div class="row justify-content-center" v-if="!loading">
             <div class="col-lg-5">
-                <div>
-                    <img :src="selectedImage.path" class="img-fluid " :alt="selectedImage.name">
+                <div class="shadow">
+                    <img :src="selectedImage.path" class="img-fluid shadow rounded" :alt="selectedImage.name">
                 </div>
                 <div>
-                    <ul class="list-group list-group-horizontal overflow-auto mt-1">
-                        <li style="height: 10em;" class="list-group-item" v-for="image in this.product.images">
-                            <img height="100%" style="cursor: pointer;" :src="image.path" :alt="image.name"
-                                @click="selectedImage = image">
+                    <ul class="list-group list-group-horizontal overflow-auto mt-1 shadow">
+                        <li style="min-height:: 10em; min-width: 8em;" class="list-group-item p-1" v-for="image in this.product.images" :key="image.name">
+                            <img style="cursor: pointer;" :src="image.path" :alt="image.name"
+                                @click="selectedImage = image" class="rounded shadow img-fluid">
                         </li>
                     </ul>
                 </div>
@@ -27,10 +27,10 @@
 
                 <div class="row g-3 mt-2">
                     <div class="col-auto">
-                        <input v-model="number" min=1 :max="product.number" type="number" class="form-control">
+                        <input v-model="number" min=1 :max="product.number" type="number" class="form-control shadow">
                     </div>
                     <div class="col-auto">
-                        <button @click="addToBasket" class="btn mb-3" style="background: #ffc107">В корзину</button>
+                        <button @click="addToBasket" class="btn mb-3 shadow" style="background: #ffc107">В корзину</button>
                     </div>
                     <div class="col-auto">
                         <i class="bi bi-heart h2 mx-2" style="cursor: pointer"></i>

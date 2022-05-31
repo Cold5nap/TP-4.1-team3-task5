@@ -1,6 +1,4 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Paginate from 'vuejs-paginate';
+import { createRouter,createWebHistory } from "vue-router";
 import Layout from "./components/Layout/Layout";
 import Contact from "./components/Contact";
 import Constructor from "./components/Constructor";
@@ -9,14 +7,17 @@ import Message from "./components/Message";
 import Basket from "./components/Basket";
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import Product from "./components/Product";
-
+import { createApp } from 'vue';
+import About from './components/About';
+import User from './components/User';
+import Favorite from './components/Favorite';
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 require('./bootstrap');
 
-Vue.component('paginate', Paginate)
-Vue.use(VueRouter);
 
-const router = new VueRouter({
-    mode: 'history',
+
+const router = new createRouter({
+    history: createWebHistory(),
     routes: [
         {
             path: '/',
@@ -27,6 +28,7 @@ const router = new VueRouter({
             path: '/contact',
             name: 'contact',
             component: Contact,
+
         },
         {
             path: '/constructor',
@@ -48,12 +50,23 @@ const router = new VueRouter({
             name: 'basket',
             component: Basket,
         },
+        {
+            path: '/about',
+            name: 'about',
+            component: About,
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: User,
+        },
+        {
+            path: '/favorite',
+            name: 'favorite',
+            component: Favorite,
+        },
 
     ]
 })
 
-const appLayout = new Vue({
-    el: '#layout',
-    components: { Layout },
-    router
-})
+createApp(Layout).use(router).use(VueReCaptcha, { siteKey: '6LfsNjEgAAAAAJIwkezQOD8sE9eDVXcYT3YXCeTv' }).mount('#layout')

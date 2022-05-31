@@ -11,9 +11,7 @@
 </head>
 <body class="sidebar-mini" style="height: auto;">
 
-<div id="layout" >
-    <layout></layout>
-</div>
+<div id="layout"></div>
 
 <script src="{{mix('js/user.js')}}"></script>
 

@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MaterialResource extends JsonResource
+class MaterialImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +17,7 @@ class MaterialResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'price'=>$this->price,
-            'number'=>$this->number,
-            'image'=> MaterialImageResource::make($this->image),
-            'categories'=> CategoryResource::collection($this->categories),
+            'path'=>$this->path,
         ];
     }
 }

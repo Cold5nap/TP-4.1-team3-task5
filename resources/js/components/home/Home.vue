@@ -23,14 +23,14 @@
                 <!--фильтр по категориям-->
                 <ul class="list-unstyled mb-0 py-3 pt-md-1">
                     <CategoryFilter v-for="(category, index) in categories" :key="index" :category="category"
-                        v-model="selectedCategories" @input="getProductByCategory()"></CategoryFilter>
+                        @update="updateSelectedCategories"></CategoryFilter>
                 </ul>
             </div>
 
             <!--карточки товаров-->
             <div class="row">
                 <!--Сортировка-->
-                <div class="col mx-2">
+                <div class="col mx-5 ">
                     <b>Сортировка по:</b>
                     <span style="cursor: pointer" @click="setDateOrder">
                         дате добавления
@@ -45,7 +45,7 @@
                     </span>
                 </div>
 
-                <main class="row row-cols-1 row-cols-md-3 g-4 m-0">
+                <div class="row row-cols-1 row-cols-md-3 g-4 m-0 justify-content-center">
                     <Card v-for="(product, index) in products" :key="index" :product="product"></Card>
                     <!--спинер загрузки товаров-->
                     <div class="text-center" v-if="loading">
@@ -53,11 +53,11 @@
                             <span class="sr-only">Загрузка...</span>
                         </div>
                     </div>
-                </main>
+                </div>
                 <div class="m-2 justify-content-center">
                     <paginate v-model="currentPageProduct" :page-count="lastPageProduct"
                         :click-handler="getProductByCategory" :prev-text="'Предыдущая'" :next-text="'Следующая'"
-                        :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
+                        :container-class="'pagination justify-content-center'" :page-class="'page-item'" :page-link-class="'page-link'"
                         :prev-link-class="'page-link'" :next-link-class="'page-link'">
                     </paginate>
                 </div>
@@ -69,8 +69,9 @@
 <script>
 import Carousel from './Carousel'
 import Card from './Card'
-import CategoryFilter from './CategoryFilter'
+import CategoryFilter from '../CategoryFilter'
 import noUiSlider from "../../nouislider.min"
+import Paginate from 'vuejs-paginate-next';
 
 export default {
     data() {
@@ -88,6 +89,14 @@ export default {
         }
     },
     methods: {
+        updateSelectedCategories(obj){
+            if(obj.checked){
+                this.selectedCategories.push(obj.id)
+            }else{
+                this.selectedCategories=this.selectedCategories.filter(id=>id!==obj.id)
+            }
+            this.getProductByCategory()
+        },
         setDateOrder() {
             this.orderBy = 'created_at'
             if (this.orderByType === 'desc') {
@@ -182,6 +191,7 @@ export default {
         Carousel,
         Card,
         CategoryFilter,
+        Paginate
     },
     mounted() {
         this.getProductByCategory();

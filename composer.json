@@ -9,7 +9,7 @@
         "browner12/helpers": "^3.4",
         "darkaonline/l5-swagger": "^8.3",
         "fruitcake/laravel-cors": "^2.0.5",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.4",
         "infyomlabs/laravel-ui-adminlte": "^4.0",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.0",

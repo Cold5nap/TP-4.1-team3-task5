@@ -1,6 +1,6 @@
 import Categories from "./components/admin/Categories";
-import Vue from "vue";
-import VueRouter from "vue-router";
+import {createApp} from "vue";
+import { createRouter,createWebHistory } from "vue-router";
 import Home from './components/admin/Home';
 import AdminLayout from './components/admin/AdminLayout'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -9,15 +9,12 @@ import Products from "./components/admin/Products";
 import Users from "./components/admin/Users";
 import Orders from "./components/admin/Orders";
 import Contacts from "./components/admin/Contacts";
-import Paginate from 'vuejs-paginate';
 
 require('./adminlte');
 
-Vue.component('paginate', Paginate)
-Vue.use(VueRouter);
 
-const router = new VueRouter({
-    mode:'history',
+const router = new createRouter({
+    history:createWebHistory(),
     routes:[
         {
             path:'/adm/home',
@@ -50,15 +47,11 @@ const router = new VueRouter({
             component:Categories,
         },
         {
-            path:'/adm/contacts',
-            name:'contacts',
+            path:'/adm/messages',
+            name:'messages',
             component:Contacts,
         },
     ]
 })
 
-const appLayout = new Vue({
-    el:'#admin-layout',
-    components:{AdminLayout},
-    router
-})
+createApp(AdminLayout).use(router).mount('#admin-layout')

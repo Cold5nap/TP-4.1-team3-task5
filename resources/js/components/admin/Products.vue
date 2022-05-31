@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-3 form-group rounded border m-2   ">
                             <label class="text-black" for="name">Введите название</label>
-                            <input value="test" type="text" v-model="name" placeholder="Название" id="name"
+                            <input type="text" v-model="name" placeholder="Название" id="name"
                                    class="form-control">
                         </div>
                         <div class="col form-group rounded border m-2  ">
@@ -207,6 +207,7 @@
 </template>
 
 <script>
+import Paginate from 'vuejs-paginate-next';
 export default {
     data() {
         return {
@@ -372,10 +373,9 @@ export default {
     mounted() {
         this.getProducts()
     },
+    components:{
+        Paginate
+    }
 
 }
 </script>
-
-<style scoped>
-
-</style>

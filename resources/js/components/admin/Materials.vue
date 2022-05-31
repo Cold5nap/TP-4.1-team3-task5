@@ -7,28 +7,26 @@
                 <div class="row">
                     <div class="col-3 form-group">
                         <label for="name">Введите название</label>
-                        <input value="test" type="text" v-model="name" placeholder="Название" id="name"
-                               class="form-control">
+                        <input type="text" v-model="name" placeholder="Название" id="name" class="form-control">
                     </div>
                     <div class="col-3 form-group">
                         <label for="price">Цена материала(1шт.)</label>
-                        <input value="3" type="text" v-model="price" placeholder="цена" id="price" class="form-control">
+                        <input type="text" v-model="price" placeholder="цена" id="price" class="form-control">
                     </div>
                     <div class="col-4 form-group">
                         <label for="number">Введите кол-во материалов</label>
-                        <input value="2" type="number" v-model="number" placeholder="кол-во" id="number"
-                               class="form-control">
+                        <input type="number" v-model="number" placeholder="кол-во" id="number" class="form-control">
                     </div>
                     <div class="col-3 form-group">
                         <label for="sum">Сумма за материалы</label>
-                        <input disabled type="text" placeholder="Сумма за материалы"
-                               id="sum" v-bind:value="number*price" class="form-control">
+                        <input disabled type="text" placeholder="Сумма за материалы" id="sum"
+                            v-bind:value="number*price" class="form-control">
                     </div>
 
                     <div class="col-3 form-group">
                         <label for="image">Выберите изображение</label>
                         <input type="file" class="form-control form-control-file" ref="image" @change="uploadImage"
-                               id="image">
+                            id="image">
                     </div>
 
                     <div class="col-3 form-group">
@@ -51,32 +49,31 @@
             <h3>Материалы</h3>
             <table class="table table-sm table-bordered">
                 <thead>
-                <tr>
-                    <th scope="col">Название</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Сумма</th>
-                    <th scope="col">Категории</th>
-                    <th scope="col">Изображение</th>
-                    <th scope="col"></th>
-                </tr>
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Количество</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Категории</th>
+                        <th scope="col">Изображение</th>
+                        <th scope="col"></th>
+                    </tr>
                 </thead>
                 <tbody>
 
-                <tr v-for="material in materials">
-                    <td>{{ material.name }}</td>
-                    <td>{{ material.price }}</td>
-                    <td>{{ material.number }}</td>
-                    <td>{{ material.price * material.number }}</td>
-                    <td><span v-for="category in material.categories">{{ category.name }}<br></span></td>
-                    <td><img height="70" v-bind:src="material.image.path"
-                             v-bind:alt="material.image.name"></td>
-                    <td>
-                        <form @submit.prevent="deleteMaterial(material.id)">
-                            <button class='btn btn-sm btn-danger' type="submit"><i class="bi bi-x-lg"></i></button>
-                        </form>
-                    </td>
-                </tr>
+                    <tr v-for="material in materials">
+                        <td>{{ material.name }}</td>
+                        <td>{{ material.price }}</td>
+                        <td>{{ material.number }}</td>
+                        <td>{{ material.price * material.number }}</td>
+                        <td><span v-for="category in material.categories">{{ category.name }}<br></span></td>
+                        <td><img height="70" v-bind:src="material.image.path" v-bind:alt="material.image.name"></td>
+                        <td>
+                            <form @submit.prevent="deleteMaterial(material.id)">
+                                <button class='btn btn-sm btn-danger' type="submit"><i class="bi bi-x-lg"></i></button>
+                            </form>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="text-center" v-if="loading">
@@ -85,18 +82,9 @@
                 </div>
             </div>
 
-            <paginate
-                v-model="currentPage"
-                :page-count="lastPage"
-                :click-handler="goToPage"
-                :prev-text="'Предыдущая'"
-                :next-text="'Следующая'"
-                :container-class="'pagination'"
-                :page-class="'page-item'"
-                :page-link-class="'page-link'"
-                :prev-link-class="'page-link'"
-                :next-link-class="'page-link'"
-            >
+            <paginate v-model="currentPage" :page-count="lastPage" :click-handler="goToPage" :prev-text="'Предыдущая'"
+                :next-text="'Следующая'" :container-class="'pagination'" :page-class="'page-item'"
+                :page-link-class="'page-link'" :prev-link-class="'page-link'" :next-link-class="'page-link'">
             </paginate>
 
         </div>
@@ -104,6 +92,7 @@
 </template>
 
 <script>
+import Paginate from 'vuejs-paginate-next';
 export default {
     data() {
         return {
@@ -125,15 +114,15 @@ export default {
         }
     },
     methods: {
-        goToPage(pageNum){
+        goToPage(pageNum) {
             this.getMaterials(pageNum)
         },
-        setPagination(response){
+        setPagination(response) {
             this.currentPage = response.data.meta.current_page;
             this.lastPage = response.data.meta.last_page;
         },
-        showAddForm(){
-            if(!this.categories.length>0){
+        showAddForm() {
+            if (!this.categories.length > 0) {
                 this.getCategories()
             }
             this.isStoreForm = !this.isStoreForm;
@@ -170,8 +159,8 @@ export default {
         deleteMaterial(id) {
             this.materials = [];
             this.loading = true;
-            axios.post('/api/adm/materials/'+id,{
-                _method:'DELETE'
+            axios.post('/api/adm/materials/' + id, {
+                _method: 'DELETE'
             })
                 .then(response => {
                     this.getMaterials()
@@ -185,7 +174,7 @@ export default {
         getMaterials(pageNumber) {
             this.materials = []
             this.loading = true
-            axios.get('/api/adm/materials?page='+pageNumber)
+            axios.get('/api/adm/materials?page=' + pageNumber)
                 .then(response => {
                     this.setPagination(response)
                     this.materials = response.data.data
@@ -210,11 +199,13 @@ export default {
     },
     mounted() {
         this.getMaterials(1)
-    },
+    }, 
+    components: {
+        Paginate
+    }
 
 }
 </script>
 
 <style scoped>
-
 </style>
