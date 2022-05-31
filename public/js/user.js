@@ -19960,10 +19960,7 @@ __webpack_require__.r(__webpack_exports__);
     recaptcha: function recaptcha() {
       var _this = this;
 
-      console.log('recaptcha clicked');
       this.$recaptchaLoaded().then(function () {
-        console.log('recaptcha loaded');
-
         _this.$recaptcha('login').then(function (token) {
           _this.postOrder(token);
         });
@@ -19986,7 +19983,7 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'application/json'
         }
       }).then(function (response) {
-        return console.log(response);
+        return alert(response.data);
       })["catch"](function (error) {
         console.log(error);
         _this2.errored = true;

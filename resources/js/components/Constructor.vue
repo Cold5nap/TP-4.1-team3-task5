@@ -176,9 +176,7 @@ export default {
     //todo: selectedMaterials
     methods: {
         recaptcha() {
-            console.log('recaptcha clicked')
             this.$recaptchaLoaded().then(() => {
-                console.log('recaptcha loaded')
                 this.$recaptcha('login').then(token => {
                     this.postOrder(token)
                 })
@@ -196,7 +194,7 @@ export default {
                 token: token,
             }, { headers: { 'Content-Type': 'application/json' } }
             )
-                .then(response => console.log(response))
+                .then(response => alert(response.data))
                 .catch(error => {
                     console.log(error)
                     this.errored = true
