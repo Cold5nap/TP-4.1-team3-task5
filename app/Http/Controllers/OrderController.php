@@ -49,7 +49,7 @@ class OrderController extends Controller
         }
         $order->products()->attach($products);
 
-        return  'Успешно произведен.';
+        return  response()->noContent();
     }
 
     public function makeCustomOrder(CustomOrderRequest $request)

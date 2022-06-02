@@ -61,7 +61,7 @@
         </div>
         <div class="mb-3 col-auto">Сборные заказы требуют точного изложения ваших желаний,
           поэтому мы позвоним вам для его уточнения и подтверждения.</div>
-        <button type="button" class="btn btn-warning" @click="recaptcha()">Произвести заказ</button>
+        <button type="button" class="btn btn-warning" @click="recaptcha">Произвести заказ</button>
       </div>
     </div>
 
@@ -88,7 +88,7 @@ export default {
       phoneNumber: "111111",
       address: "dddddddddd",
       nameSurname: "sssssssssssss",
-      date: '2022-05-31 17:14:52',
+      date: '2022-05-31 17:14',
       description: "aaaaaaaaaaaaasdfasdfasdfasdf",
       email: "aaaaaaaa",
       loading:false,
@@ -98,16 +98,6 @@ export default {
     recaptcha() {
       this.$recaptchaLoaded().then(() => {
         this.$recaptcha('login').then(token => {
-          console.log(JSON.stringify({
-            selected_products: this.products,
-            name_surname: this.nameSurname,
-            address: this.address,
-            phone_number: this.phoneNumber,
-            email: this.email,
-            date: this.date,
-            description: this.description,
-            token: token,
-          }))
           this.postOrder(token)
         })
       })
@@ -141,9 +131,6 @@ export default {
       let productsId = JSON.parse(localStorage.getItem(key));
       localStorage.setItem(key, JSON.stringify(productsId.filter(i => i != id)))
       this.products = this.products.filter(p => p.id != id)
-    },
-    postOrder() {
-
     },
     setPaginationProduct(response) {
       this.currentPage = response.data.meta.current_page;

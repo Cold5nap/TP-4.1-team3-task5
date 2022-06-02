@@ -19854,10 +19854,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "BasketComponent",
   data: function data() {
@@ -19868,29 +19864,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       phoneNumber: "111111",
       address: "dddddddddd",
       nameSurname: "sssssssssssss",
-      date: '2022-05-31 17:14:52',
+      date: '2022-05-31 17:14',
       description: "aaaaaaaaaaaaasdfasdfasdfasdf",
       email: "aaaaaaaa",
       loading: false
     };
   },
-  methods: (_methods = {
+  methods: {
     recaptcha: function recaptcha() {
       var _this = this;
 
       this.$recaptchaLoaded().then(function () {
         _this.$recaptcha('login').then(function (token) {
-          console.log(JSON.stringify({
-            selected_products: _this.products,
-            name_surname: _this.nameSurname,
-            address: _this.address,
-            phone_number: _this.phoneNumber,
-            email: _this.email,
-            date: _this.date,
-            description: _this.description,
-            token: token
-          }));
-
           _this.postOrder(token);
         });
       });
@@ -19931,37 +19916,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.products = this.products.filter(function (p) {
         return p.id != id;
       });
+    },
+    setPaginationProduct: function setPaginationProduct(response) {
+      this.currentPage = response.data.meta.current_page;
+      this.lastPage = response.data.meta.last_page;
+    },
+    getProductById: function getProductById(ids) {
+      var _this3 = this;
+
+      this.products = [];
+      this.loading = true;
+      var url = '/api/basket';
+      axios.get(url, {
+        params: {
+          product_ids: ids
+        }
+      }).then(function (response) {
+        if (response.status == 200) {
+          _this3.setPaginationProduct(response);
+
+          _this3.products = response.data.data;
+
+          _this3.products.forEach(function (p) {
+            return p.selectedNumber = 1;
+          });
+        }
+      })["catch"](function (error) {
+        console.log(error);
+        _this3.errored = true;
+      })["finally"](function () {
+        return _this3.loading = false;
+      });
     }
-  }, _defineProperty(_methods, "postOrder", function postOrder() {}), _defineProperty(_methods, "setPaginationProduct", function setPaginationProduct(response) {
-    this.currentPage = response.data.meta.current_page;
-    this.lastPage = response.data.meta.last_page;
-  }), _defineProperty(_methods, "getProductById", function getProductById(ids) {
-    var _this3 = this;
-
-    this.products = [];
-    this.loading = true;
-    var url = '/api/basket';
-    axios.get(url, {
-      params: {
-        product_ids: ids
-      }
-    }).then(function (response) {
-      if (response.status == 200) {
-        _this3.setPaginationProduct(response);
-
-        _this3.products = response.data.data;
-
-        _this3.products.forEach(function (p) {
-          return p.selectedNumber = 1;
-        });
-      }
-    })["catch"](function (error) {
-      console.log(error);
-      _this3.errored = true;
-    })["finally"](function () {
-      return _this3.loading = false;
-    });
-  }), _methods),
+  },
   mounted: function mounted() {
     var ids = JSON.parse(localStorage.getItem('productsIdInBasket'));
     this.getProductById(ids);
@@ -20058,7 +20045,7 @@ __webpack_require__.r(__webpack_exports__);
     postOrder: function postOrder(token) {
       var _this2 = this;
 
-      axios.post('/api/order', {
+      axios.post('/api/order/material', {
         selected_materials: this.selectedMaterials,
         name_surname: this.nameSurname,
         address: this.address,
@@ -21055,8 +21042,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.description]])]), _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-warning",
-    onClick: _cache[6] || (_cache[6] = function ($event) {
-      return $options.recaptcha();
+    onClick: _cache[6] || (_cache[6] = function () {
+      return $options.recaptcha && $options.recaptcha.apply($options, arguments);
     })
   }, "Произвести заказ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.products.length == 0 && !$data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_30, _hoisted_32)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_33, _hoisted_35)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }

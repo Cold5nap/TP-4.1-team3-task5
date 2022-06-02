@@ -185,7 +185,7 @@ export default {
             })
         },
         postOrder(token) {
-            axios.post('/api/order', {
+            axios.post('/api/order/material', {
                 selected_materials: this.selectedMaterials,
                 name_surname: this.nameSurname,
                 address: this.address,
