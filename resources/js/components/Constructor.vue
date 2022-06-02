@@ -23,6 +23,7 @@
             </div>
         </div>
 
+        <!-- Часть страницы про заказ -->
         <div v-show="tab === 'order'" class="row p-3 justify-content-center">
             <div class="row justify-content-center" v-if="selectedMaterials.length > 0">
 
@@ -86,6 +87,8 @@
                         <textarea class="form-control" rows="3" cols="40" v-model="description"
                             id="description"></textarea>
                     </div>
+                    <div class="mb-3 col-auto">Сборные заказы требуют точного изложения ваших желаний,
+                        поэтому мы позвоним вам для его уточнения и подтверждения.</div>
                     <button type="button" class="btn btn-warning" @click="recaptcha">Произвести заказ</button>
                 </div>
 
@@ -138,7 +141,6 @@
 <script>
 import Card from './MaterialCard'
 import CategoryFilter from './CategoryFilter'
-import { useReCaptcha } from 'vue-recaptcha-v3'
 
 export default {
     name: 'ConstructorComponent',

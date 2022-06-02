@@ -46,7 +46,10 @@
                 </div>
 
                 <div class="row row-cols-1 row-cols-md-3 g-4 m-0 justify-content-center">
-                    <Card v-for="(product, index) in products" :key="index" :product="product"></Card>
+                    <Card v-for="(product, index) in products" :key="index" :isFavorite="product.isFavorite"
+                        :product="product" :inBasket="product.inBasket"
+                        @changeIsFavorite="product.isFavorite = !product.isFavorite"
+                        @changeInBasket="product.inBasket = !product.inBasket"></Card>
                     <!--спинер загрузки товаров-->
                     <div class="text-center" v-if="loading">
                         <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
@@ -57,8 +60,8 @@
                 <div class="m-2 justify-content-center">
                     <paginate v-model="currentPageProduct" :page-count="lastPageProduct"
                         :click-handler="getProductByCategory" :prev-text="'Предыдущая'" :next-text="'Следующая'"
-                        :container-class="'pagination justify-content-center'" :page-class="'page-item'" :page-link-class="'page-link'"
-                        :prev-link-class="'page-link'" :next-link-class="'page-link'">
+                        :container-class="'pagination justify-content-center'" :page-class="'page-item'"
+                        :page-link-class="'page-link'" :prev-link-class="'page-link'" :next-link-class="'page-link'">
                     </paginate>
                 </div>
             </div>
@@ -86,14 +89,16 @@ export default {
             lastPageProduct: 1,
             orderBy: 'created_at',
             orderByType: 'desc',
+            productsIdInFavorite: null,
+            productsIdInFavorite: null,
         }
     },
     methods: {
-        updateSelectedCategories(obj){
-            if(obj.checked){
+        updateSelectedCategories(obj) {
+            if (obj.checked) {
                 this.selectedCategories.push(obj.id)
-            }else{
-                this.selectedCategories=this.selectedCategories.filter(id=>id!==obj.id)
+            } else {
+                this.selectedCategories = this.selectedCategories.filter(id => id !== obj.id)
             }
             this.getProductByCategory()
         },
@@ -167,6 +172,7 @@ export default {
                 .then(response => {
                     this.setPaginationProduct(response)
                     this.products = response.data.data
+                    this.setupProductProperties();
                 })
                 .catch(error => {
                     console.log(error)
@@ -186,6 +192,12 @@ export default {
                 })
                 .finally(() => this.loading = false)
         },
+        setupProductProperties() {
+            let productsIdInFavorite = JSON.parse(localStorage.getItem('productsIdInFavorite'))
+            let productsIdInBasket = JSON.parse(localStorage.getItem('productsIdInBasket'))
+            productsIdInFavorite.forEach(i => this.products.find(p => i == p.id).isFavorite = true)
+            productsIdInBasket.forEach(i => this.products.find(p => i == p.id).inBasket = true)
+        }
     },
     components: {
         Carousel,

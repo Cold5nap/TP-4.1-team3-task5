@@ -2,14 +2,15 @@
 
     <div class="card rounded m-2 shadow col p-0" style="width: 14rem; overflow: hidden">
         <router-link class="text-decoration-none text-black card-link"
-            :to="{ name: 'product', params: { id: product.id, product:product} }">
+            :to="{ name: 'product', params: { id: product.id, product: product } }">
 
             <img class="card-img " :src="product.mainImage.path" :alt="product.mainImage.name">
 
             <div class="card-img-overlay p-0 h-25">
                 <div class="row">
                     <div class="col text-start">
-                        <small v-if="product.discount>0" class=" badge rounded-pill bg-danger ">{{ product.discount }}%</small>
+                        <small v-if="product.discount > 0" class=" badge rounded-pill bg-danger ">{{ product.discount
+                        }}%</small>
                     </div>
                     <div class="col text-end">
                         <small class="badge bg-black opacity-75 rounded">
@@ -38,10 +39,20 @@
             </div>
             <div class="d-flex mt-1">
 
-                <i class="bi bi-heart h2 mx-2" style="cursor: pointer"></i>
-                <button type="submit" class="btn btn-warning text-dark container-fluid mx-2"> В
-                    корзину
+                <i v-if="isFavorite" @click="deleteFromFavorite()" class="bi bi-heart-fill h2 mx-2"
+                    style="color:red;cursor: pointer"></i>
+                <i v-else @click="addToFavorite()" class="bi bi-heart h2 mx-2" style="cursor: pointer"></i>
+
+                <button v-if="inBasket" @click="deleteFromBasket()" type="button"
+                    class="btn bg-black bg-opacity-10 text-dark container-fluid mx-2">
+                    Удалить из корзины
                 </button>
+                <button v-else @click="addToBasket()" type="button"
+                    class="btn btn-warning text-dark container-fluid mx-2">
+                    В корзину
+                </button>
+
+
             </div>
         </div>
     </div>
@@ -53,9 +64,56 @@ export default {
     name: "Card",
     props: {
         product: Object,
+        isFavorite: Boolean,
+        inBasket: Boolean,
     },
-    components:{
+    components: {
         OldPrice
-    }
+    },
+    methods: {
+        deleteFromFavorite() {
+
+            let key = 'productsIdInFavorite'
+            let productsId = JSON.parse(localStorage.getItem(key));
+            localStorage.setItem(key, JSON.stringify(productsId.filter(i => i != this.product.id)))
+            this.$emit('changeIsFavorite')
+        },
+        deleteFromBasket() {
+
+            let key = 'productsIdInBasket'
+            let productsId = JSON.parse(localStorage.getItem(key));
+            localStorage.setItem(key, JSON.stringify(productsId.filter(i => i != this.product.id)))
+            this.$emit('changeInBasket')
+        },
+        //поумолчанию два массива productsIdInBasket и productsIdInFavorite
+        addToBasket() {
+            let key = 'productsIdInBasket'
+            let productsId = JSON.parse(localStorage.getItem(key));
+            if (productsId == null) {
+                productsId = []
+                productsId.push(this.product.id)
+                localStorage.setItem(key, JSON.stringify(productsId))
+            } else if (!productsId.includes(this.product.id)) {
+                productsId.push(this.product.id)
+                localStorage.setItem(key, JSON.stringify(productsId))
+            }
+            this.$emit('changeInBasket')
+            console.log(localStorage.getItem(key))
+        },
+        addToFavorite() {
+            let key = 'productsIdInFavorite'
+            let productsId = JSON.parse(localStorage.getItem(key));
+            if (productsId == null) {
+                productsId = []
+                productsId.push(this.product.id)
+                localStorage.setItem(key, JSON.stringify(productsId))
+            } else if (!productsId.includes(this.product.id)) {
+                productsId.push(this.product.id)
+                localStorage.setItem(key, JSON.stringify(productsId))
+            }
+            this.$emit('changeIsFavorite')
+            console.log(localStorage.getItem(key))
+        },
+    },
 }
 </script>

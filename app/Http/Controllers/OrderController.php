@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\CustomOrderRequest;
+use App\Http\Requests\ProductOrderRequest;
 
 class OrderController extends Controller
 {
@@ -21,6 +22,34 @@ class OrderController extends Controller
         ]);
         $response = json_decode((string)$response->getBody(), true);
         return $response['success'];
+    }
+
+    public function makeProductOrder(ProductOrderRequest $request)
+    {
+        if (config('recaptcha.enabled') && !$this->checkRecaptcha($request->token, $request->ip())) {
+            return response()->json([
+                'error' => 'Captcha is invalid.',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $order = new Order();
+        $order->date = $request->input('date');
+        $order->address = $request->input('address');
+        $order->name_surname  = $request->input('name_surname');
+        $order->phone_number = $request->input('phone_number');
+        $order->email = $request->input('email');
+        $order->description = $request->input('description');
+        $order->is_paid = false;
+        $order->status = 'Принят на рассмотрение.';
+        $order->save();
+        
+        $products = [];
+        foreach ($request->input('selected_products') as $product) {
+            $products[$product['id']] = ['number_product' => $product['selectedNumber']];
+        }
+        $order->products()->attach($products);
+
+        return  'Успешно произведен.';
     }
 
     public function makeCustomOrder(CustomOrderRequest $request)

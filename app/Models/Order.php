@@ -12,4 +12,7 @@ class Order extends Model
     public function materials(){
         return $this->belongsToMany(Material::class,'order_material')->withPivot('number_material');
     }
+    public function products(){
+        return $this->belongsToMany(Product::class,'order_product')->withPivot('number_product');
+    }
 }
