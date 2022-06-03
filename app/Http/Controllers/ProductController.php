@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ShowProductResource;
-use App\Http\Resources\ProductResource;
-use App\Models\Category;
-use App\Models\Category_product;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category_product;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\ShowProductResource;
+use App\Http\Resources\ProductBasketResource;
 
 class ProductController extends Controller
 {
@@ -65,5 +66,18 @@ class ProductController extends Controller
 
     public function show($id){
         return ShowProductResource::make(Product::with('images','size')->find($id));
+    }
+
+    public function getByIds(Request $request)
+    {
+        if ($request->get('product_ids') != null) {
+            return ProductBasketResource::collection(
+                Product::with('mainImage')
+                    ->whereIn('id', $request->get('product_ids'))
+                    ->get()
+            );
+        } else {
+            return response()->noContent();
+        }
     }
 }

@@ -10,9 +10,9 @@ class Order extends Model
     use HasFactory;
 
     public function materials(){
-        return $this->belongsToMany(Material::class,'order_material')->withPivot('number_material');
+        return $this->belongsToMany(Material::class,'order_material')->withPivot('number_materials');
     }
     public function products(){
-        return $this->belongsToMany(Product::class,'order_product')->withPivot('number_product');
+        return $this->belongsToMany(Product::class,'order_product')->withPivot('number_products');
     }
 }

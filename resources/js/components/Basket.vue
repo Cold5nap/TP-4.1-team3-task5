@@ -24,122 +24,66 @@
             <td class="align-middle">
               <input type="number" class="form-control" v-model="product.selectedNumber" style="width: 60px;">
             </td>
-            <td class="align-middle">{{ product.price * product.number }} руб.</td>
+            <td class="align-middle">{{ product.price * product.selectedNumber }} руб.</td>
             <td class="align-middle">
               <i class="bi bi-bag-x h3" @click="deleteProduct(product.id)" style="cursor: pointer;"></i>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="row justify-content-center rounded bg-black bg-opacity-10">
-        <h5 class="text-center mb-3">Заполните данные о заказе, чтобы произвести его.</h5>
 
-        <div class="mb-3 col-auto">
-          <label class="form-label" for="nameSurname">Введите имя и отчество</label>
-          <input type="text" class="form-control" id="nameSurname" placeholder="имя отчество" v-model="nameSurname">
-        </div>
-        <div class="mb-3 col-auto">
-          <label class="form-label" for="email">Введите Email</label>
-          <input type="text" class="form-control" id="email" placeholder="email@ya.ru" v-model="email">
-        </div>
-        <div class="mb-3 col-auto">
-          <label class="form-label" for="phoneNumber">Введите номер телефона</label>
-          <input v-model="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="89009009090">
-        </div>
-        <div class="mb-3 col-auto">
-          <label class="form-label" for="address">Введите адрес доставки</label>
-          <input v-model="address" type="text" class="form-control" id="address"
-            placeholder="Улица, дом или квартира, подъезд, этаж">
-        </div>
-        <div class="mb-3 col-auto">
-          <label class="form-label" for="date">Выберите дату и время доставки</label>
-          <input v-model="date" class="form-control" type="datetime-local" id="date">
-        </div>
-        <div class="mb-3 col-auto">
-          <label class="form-label" for="description">Ваши пожелания</label>
-          <textarea class="form-control" rows="3" cols="40" v-model="description" id="description"></textarea>
-        </div>
-        <div class="mb-3 col-auto">Сборные заказы требуют точного изложения ваших желаний,
-          поэтому мы позвоним вам для его уточнения и подтверждения.</div>
-        <button type="button" class="btn btn-warning" @click="recaptcha">Произвести заказ</button>
+      <div class="text-end">
+        <h5>Итого сумма заказа {{ sum }}</h5>
       </div>
-    </div>
 
-    <div v-if="products.length == 0 && !loading" class="bg-black bg-opacity-10 p-3 text-center rounded">
-      <h5>В корзине товаров нет.</h5>
-    </div>
+      <Order :products="products" :type="'product'"></Order>
 
-    <div class="text-center" v-if="loading">
-      <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
-        <span class="sr-only">Загрузка...</span>
+      <div v-if="products.length == 0 && !loading" class="bg-black bg-opacity-10 p-3 text-center rounded">
+        <h5>В корзине товаров нет.</h5>
+      </div>
+
+      <div class="text-center" v-if="loading">
+        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+          <span class="sr-only">Загрузка...</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Order from "./Order";
+
 export default {
+
   name: "BasketComponent",
   data() {
     return {
       products: [],
-      currentPage: null,
-      lastPage: null,
-      phoneNumber: "111111",
-      address: "dddddddddd",
-      nameSurname: "sssssssssssss",
-      date: '2022-05-31 17:14',
-      description: "aaaaaaaaaaaaasdfasdfasdfasdf",
-      email: "aaaaaaaa",
-      loading:false,
+      loading: false,
+    }
+  },
+  components: {
+    Order,
+  },
+  computed: {
+    sum() {
+      let sum = 0
+      this.products.forEach(p => sum += p.selectedNumber * p.price)
+      return sum
     }
   },
   methods: {
-    recaptcha() {
-      this.$recaptchaLoaded().then(() => {
-        this.$recaptcha('login').then(token => {
-          this.postOrder(token)
-        })
-      })
-    },
-    postOrder(token) {
-      axios.post('/api/order/product', {
-        selected_products: this.products,
-        name_surname: this.nameSurname,
-        address: this.address,
-        phone_number: this.phoneNumber,
-        email: this.email,
-        date: this.date,
-        description: this.description,
-        token: token,
-      }, { headers: { 'Content-Type': 'application/json' } }
-      )
-        .then(response => {
-          if (response.status == 204) {
-            alert('Ваш заказ принят и будет рассмотрен.')
-          } else {
-            alert('Заказ не принят.')
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          this.errored = true
-        })
-    },
     deleteProduct(id) {
       let key = 'productsIdInBasket'
       let productsId = JSON.parse(localStorage.getItem(key));
       localStorage.setItem(key, JSON.stringify(productsId.filter(i => i != id)))
       this.products = this.products.filter(p => p.id != id)
     },
-    setPaginationProduct(response) {
-      this.currentPage = response.data.meta.current_page;
-      this.lastPage = response.data.meta.last_page;
-    },
     getProductById(ids) {
       this.products = []
       this.loading = true
-      let url = '/api/basket';
+      let url = '/api/product_by_id';
       axios.get(url, {
         params: {
           product_ids: ids
@@ -147,7 +91,6 @@ export default {
       })
         .then(response => {
           if (response.status == 200) {
-            this.setPaginationProduct(response)
             this.products = response.data.data
             this.products.forEach(p => p.selectedNumber = 1)
           }
@@ -162,8 +105,6 @@ export default {
   mounted() {
     let ids = JSON.parse(localStorage.getItem('productsIdInBasket'))
     this.getProductById(ids)
-
-
   },
 };
 </script>

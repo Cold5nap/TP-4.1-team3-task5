@@ -11,10 +11,13 @@ import { createApp } from 'vue';
 import About from './components/About';
 import User from './components/User';
 import Favorite from './components/Favorite';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import Register from './components/Register';
+import Orders from './components/Orders'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
+
 require('./bootstrap');
-
-
 
 const router = new createRouter({
     history: createWebHistory(),
@@ -65,8 +68,28 @@ const router = new createRouter({
             name: 'favorite',
             component: Favorite,
         },
+        {
+            name: 'register',
+            path: '/register',
+            component: Register
+        },
+        {
+            name: 'login',
+            path: '/login',
+            component: Login
+        },
+        {
+            name: 'dashboard',
+            path: '/dashboard',
+            component: Dashboard
+        },
+        {
+            name: 'orders',
+            path: '/order',
+            component: Orders
+        },
 
     ]
 })
 
-createApp(Layout).use(router).use(VueReCaptcha, { siteKey: '6LfsNjEgAAAAAJIwkezQOD8sE9eDVXcYT3YXCeTv' }).mount('#layout')
+const app = createApp(Layout).use(router).use(VueReCaptcha, { siteKey: '6LfsNjEgAAAAAJIwkezQOD8sE9eDVXcYT3YXCeTv' }).mount('#layout')
