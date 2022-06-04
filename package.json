@@ -26,6 +26,7 @@
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.8.1",
     "nouislider": "^15.5.1",
+    "tempusdominus-core": "^5.19.3",
     "vue": "^3.2.36",
     "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "^4.0.15",
