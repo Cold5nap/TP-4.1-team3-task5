@@ -14,7 +14,7 @@ class Material extends Model
     }
 
     function categories(){
-        return $this->belongsToMany(Category::class)->withTimestamps();
+        return $this->belongsToMany(Category::class);
     }
 
 }

@@ -20493,7 +20493,6 @@ __webpack_require__.r(__webpack_exports__);
     postOrder: function postOrder(token) {
       var _this2 = this;
 
-      console.log(token);
       axios.post('/api/order/' + this.type, {
         selected_products: this.products,
         name_surname: this.nameSurname,
@@ -20508,6 +20507,8 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'application/json'
         }
       }).then(function (response) {
+        console.log(response);
+
         if (response.data != null) {
           alert('Ваш заказ принят и будет рассмотрен.');
         } else {
@@ -20540,7 +20541,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       orders: [],
       loading: true,
-      key: 'productsTokenInOrder',
       email: 'cold4nap@gmail.com',
       canEnterCode: false,
       code: 'pujvnJazHi'
@@ -20593,9 +20593,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {
-    this.getOrderByCode();
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),

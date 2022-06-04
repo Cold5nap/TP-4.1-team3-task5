@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('status_completion_id')->constrained();
-            $table->date('date_completion');
-            $table->boolean('is_delivery');
             $table->string('address');
-            $table->integer('price');
             $table->boolean('is_paid');
+            $table->date('date');
+            $table->string('name_surname');
+            $table->integer('phone_number');
+            $table->string('email');
+            $table->string('status');
+            $table->text('description');
             $table->timestamps();
         });
     }

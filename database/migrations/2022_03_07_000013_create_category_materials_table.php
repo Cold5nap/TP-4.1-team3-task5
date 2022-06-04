@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('material_id')->constrained();
-            $table->timestamps();
         });
     }
 

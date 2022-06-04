@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('material_id')->constrained();
             $table->foreignId('product_id')->constrained();
             $table->integer('number_material');
-            $table->timestamps();
         });
     }
 

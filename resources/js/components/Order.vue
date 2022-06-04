@@ -57,7 +57,6 @@ export default {
             })
         },
         postOrder(token) {
-            console.log(token)
             axios.post('/api/order/' + this.type, {
                 selected_products: this.products,
                 name_surname: this.nameSurname,
@@ -70,6 +69,7 @@ export default {
             }, { headers: { 'Content-Type': 'application/json' } }
             )
                 .then(response => {
+                    console.log(response)
                     if (response.data != null) {
                         alert('Ваш заказ принят и будет рассмотрен.')
                     } else {
