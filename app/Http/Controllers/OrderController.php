@@ -75,7 +75,6 @@ class OrderController extends Controller
         $order->email = $request->input('email');
         $order->description = $request->input('description');
         $order->is_paid = false;
-        $order->token = $request->token;
         $order->status = 'Принят на рассмотрение.';
         $order->save();
 
@@ -84,7 +83,7 @@ class OrderController extends Controller
             $products[$product['id']] = ['number_products' => $product['selectedNumber']];
         }
         $order->products()->attach($products);
-        return  $order->token;
+        return  $request->token;
     }
 
     public function makeCustomOrder(ProductOrderRequest $request)
@@ -103,7 +102,6 @@ class OrderController extends Controller
         $order->email = $request->input('email');
         $order->description = $request->input('description');
         $order->is_paid = false;
-        $order->token = $request->token;
         $order->status = 'Принят на рассмотрение.';
         $order->save();
 

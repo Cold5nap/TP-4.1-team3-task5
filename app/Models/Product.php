@@ -22,14 +22,12 @@ class Product extends Model
     }
 
     function categories(){
-        return $this->belongsToMany(Category::class)
-            ->withTimestamps();
+        return $this->belongsToMany(Category::class);
     }
 
     function composition(){
         return $this->belongsToMany(Material::class,'composition')
-            ->withPivot('number_material')
-            ->withTimestamps();
+            ->withPivot('number_material');
     }
 
 }

@@ -97,7 +97,6 @@ export default {
         return {
             orders: [],
             loading: true,
-            key: 'productsTokenInOrder',
             email: 'cold4nap@gmail.com',
             canEnterCode: false,
             code: 'pujvnJazHi',
@@ -142,7 +141,6 @@ export default {
         },
     },
     mounted() {
-        this.getOrderByCode()
     }
 };
 </script>
