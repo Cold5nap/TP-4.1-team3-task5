@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('path');
             $table->boolean('is_main')->default(false);
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

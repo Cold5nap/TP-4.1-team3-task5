@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('path');
             $table->foreignId('material_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

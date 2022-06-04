@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedSmallInteger('height');
             $table->unsignedSmallInteger('width');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

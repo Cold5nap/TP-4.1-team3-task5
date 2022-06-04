@@ -10,4 +10,5 @@ class Composition extends Pivot
 {
     use HasFactory;
     public $incrementing = true;
+    public $timestamps = false;
 }

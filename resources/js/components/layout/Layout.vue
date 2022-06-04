@@ -13,10 +13,11 @@ import Footer from "./Footer";
 import Breadcrumbs from "./Breadcrumbs";
 
 export default {
+    name: "LayoutComponent",
     components:{
         Header,
         Footer,
         Breadcrumbs,
-    }
+    },
 }
 </script>
