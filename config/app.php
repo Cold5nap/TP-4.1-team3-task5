@@ -168,7 +168,6 @@ return [
          * Package Service Providers...
          */
         browner12\helpers\HelperServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
