@@ -49,10 +49,10 @@ if (!function_exists('saveImageOnDisk')) {
         //сохраняем изображение на яндекс диске
         $date = date("d.m.Y,H.i.s");
         $name = $image_number . $date . '_' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
-        $path = 'images/' . $name . '.jpg';
+        $path = '/images/' . $name . '.jpg';
         $stream = Image::make($image_req)
         ->fit(500, 600)
-        ->save('jpg', 20);
+        ->save(public_path() . $path ,20,'jpg');
         return ['name'=>$name,'path'=>$path];
     }
 }
