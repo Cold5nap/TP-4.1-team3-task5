@@ -16,6 +16,7 @@ use Intervention\Image\Facades\Image;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\MaterialResource;
 use App\Http\Requests\MaterialStoreRequest;
+use Exception;
 
 class AdminMaterialController extends Controller
 {
@@ -35,8 +36,10 @@ class AdminMaterialController extends Controller
  
     public function store(MaterialStoreRequest $request)
     {
+        try{
         //сохраняем изображение на яндекс диске
         $date = date("d.m.Y,H.i.s");
+        date_default_timezone_set('europe/moscow');
         $image_req = $request->file('image');
         $namePath = saveImageOnDisk($image_req,$date);
         
@@ -48,7 +51,6 @@ class AdminMaterialController extends Controller
         $material->save();
 
         //добавляем изображение
-        date_default_timezone_set('europe/moscow');
         $image = new MaterialImage();
         $image->name = $namePath['name'];
         $image->path = $namePath['path'];
@@ -58,6 +60,9 @@ class AdminMaterialController extends Controller
         if ($request->has('categories_id')) {
             $material->categories()->attach(array_values($request->input('categories_id')));
         }
+    }catch(Exception $e){
+        return response($e);
+    }
         return MaterialResource::make($material);
     }
 

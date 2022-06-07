@@ -45,11 +45,8 @@ if (!function_exists('saveImageOnDisk')) {
             // State contains the "Bucket", "Key", and "UploadId"
             $params = $e->getState()->getId();
             $result = $s3->abortMultipartUpload($params);
-            error_reporting(E_ALL);
-ini_set("display_errors", 1);
         }
         
-            
         return ['name'=>$name,'path'=>$path];
     }
 }
