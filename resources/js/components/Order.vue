@@ -40,12 +40,12 @@ export default {
     props: ['products', 'type'],
     data() {
         return {
-            phoneNumber: "111111",
-            address: "dddddddddd",
-            nameSurname: "sssssssssssss",
-            date: '2022-05-31 17:14',
-            description: "aaaaaaaaaaaaasdfasdfasdfasdf",
-            email: "aaaaaaaa",
+            phoneNumber: "",
+            address: "",
+            nameSurname: "",
+            date: '',
+            description: "",
+            email: "",
         }
     },
     methods: {

@@ -15,6 +15,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Orders from './components/Orders'
+import PersonalInformation from './components/PersonalInformation'
 import { VueReCaptcha } from 'vue-recaptcha-v3'
 
 require('./bootstrap');
@@ -88,7 +89,11 @@ const router = new createRouter({
             path: '/order',
             component: Orders
         },
-
+        {
+            name: 'personal_information',
+            path: '/personal_information',
+            component: PersonalInformation
+        },
     ]
 })
 

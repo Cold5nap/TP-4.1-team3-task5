@@ -1,15 +1,16 @@
 <template>
   <header class="border-bottom">
     <div class="container header_top p-1 mb-0">
-      <nav class="navbar navbar-light bg-ligh">
-        <router-link :to="{ name: 'home' }" class="navbar-brand text-dark text-decoration-none">
+      <nav class="navbar navbar-light bg-ligh d-flex justify-content-center">
+        <router-link :to="{ name: 'home' }" class="navbar-brand text-dark text-decoration-none mx-5">
           <span class="navbar-brand">Fiori_VRN</span>
         </router-link>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills mx-5">
           <li class="nav-item">
-            <router-link :to="{ name: 'constructor' }" class="nav-link text-dark">Конструктор букетов</router-link>
+            <a class="text-dark nav-link" href="tel:+73333333">+7 (333) 33-33</a>
           </li>
         </ul>
+
         <div class="input-group w-25">
           <button type="button" class="btn btn-warning">
             <i class="bi bi-search"></i>
@@ -20,7 +21,11 @@
 
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="text-dark nav-link" href="tel:+73333333">+7 (333) 33-33</a>
+            <router-link :to="{ name: 'home' }" class="text-dark nav-link">Товары</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'constructor' }" class="nav-link text-dark">Конструктор букетов</router-link>
+            
           </li>
           <li class="nav-item">
             <router-link :to="{ name: 'about' }" class="text-dark nav-link">Про нас</router-link>
@@ -28,23 +33,26 @@
           <li class="nav-item">
             <router-link :to="{ name: 'contact' }" class="text-dark nav-link">Контакты</router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link :to="{ name: 'message' }" class="text-dark nav-link">Сообщение</router-link>
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
 
             <div :to="{ name: 'user' }" class="text-dark nav-link" id="drop" data-bs-toggle="dropdown"
               aria-expanded="false" style="cursor: pointer;">
-              <i class="bi bi-person-square h3"></i>
+              <i class="bi bi-person-square h3 mx-2"></i>
               <span v-if="isLoggedIn">{{ name }}</span>
             </div>
             <ul class="dropdown-menu" aria-labelledby="drop">
-              <li><a class="dropdown-item" style="cursor: pointer;" @click="logout">Logout</a></li>
+              <li><a class="dropdown-item" style="cursor: pointer;" @click="logout">Выйти</a></li>
               <li>
-                <router-link to="/login" class="dropdown-item">login</router-link>
+                <router-link to="/login" class="dropdown-item">Вход</router-link>
               </li>
               <li>
-                <router-link to="/register" class="dropdown-item">Register</router-link>
+                <router-link to="/register" class="dropdown-item">Регистрация</router-link>
+              </li>
+              <li>
+                <router-link to="/personal_information" class="dropdown-item">Кабинет</router-link>
               </li>
             </ul>
 

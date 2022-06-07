@@ -97,7 +97,7 @@ export default {
         return {
             orders: [],
             loading: true,
-            email: 'cold4nap@gmail.com',
+            email: '',
             canEnterCode: false,
             code: 'pujvnJazHi',
         }

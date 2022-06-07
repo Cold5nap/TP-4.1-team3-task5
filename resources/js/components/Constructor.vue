@@ -126,7 +126,7 @@ export default {
             canvasHeight: 300,
             x: 30,
             y: 140,
-            tab: 'order',
+            tab: 'constructor',//order,
         }
     },
     computed: {
