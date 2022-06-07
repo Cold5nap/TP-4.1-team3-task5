@@ -2,9 +2,11 @@
 
 use Aws\S3\S3Client;
 use Aws\S3\MultipartUploader;
+use Aws\Exception\AwsException;
 use Illuminate\Support\Facades\Http;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Aws\Exception\MultipartUploadException;
 
 if (!function_exists('saveImageOnDisk')) {
 
@@ -37,7 +39,17 @@ if (!function_exists('saveImageOnDisk')) {
             'bucket' => 'fiori2',
             'key' => $name.'.jpg',
         ]);
-        $uploader->upload();
+        try {
+            $result = $uploader->upload();
+        } catch (MultipartUploadException $e) {
+            // State contains the "Bucket", "Key", and "UploadId"
+            $params = $e->getState()->getId();
+            $result = $s3->abortMultipartUpload($params);
+            error_reporting(E_ALL);
+ini_set("display_errors", 1);
+        }
+        
+            
         return ['name'=>$name,'path'=>$path];
     }
 }
