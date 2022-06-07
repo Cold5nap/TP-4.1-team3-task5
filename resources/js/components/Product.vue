@@ -4,7 +4,7 @@
 
         <div class="row justify-content-center" v-if="!loading">
             <div class="col-lg-5">
-                <div class="shadow">
+                <div class="text-center">
                     <img :src="selectedImage.path" class="img-fluid shadow rounded" :alt="selectedImage.name">
                 </div>
                 <div>

@@ -22789,7 +22789,7 @@ var _hoisted_3 = {
   "class": "col-lg-5"
 };
 var _hoisted_4 = {
-  "class": "shadow"
+  "class": "text-center"
 };
 var _hoisted_5 = ["src", "alt"];
 var _hoisted_6 = {

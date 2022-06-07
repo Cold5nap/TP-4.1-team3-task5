@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\api\admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MaterialStoreRequest;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\MaterialResource;
+use SplFileInfo;
+use Aws\S3\S3Client;
 use App\Models\Category;
 use App\Models\Material;
-use App\Models\MaterialImage;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
+use App\Models\MaterialImage;
+use Aws\S3\MultipartUploader;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
+use Intervention\Image\Facades\Image;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\MaterialResource;
+use App\Http\Requests\MaterialStoreRequest;
 
 class AdminMaterialController extends Controller
 {
@@ -19,16 +24,22 @@ class AdminMaterialController extends Controller
         return MaterialResource::collection(
             Material::with('image', 'categories')
                 ->orderBy("id")
-                ->paginate(40));
+                ->paginate(40)
+        );
     }
 
     public function create()
     {
         return CategoryResource::collection(Category::all());
     }
-
+ 
     public function store(MaterialStoreRequest $request)
     {
+        //сохраняем изображение на яндекс диске
+        $date = date("d.m.Y,H.i.s");
+        $image_req = $request->file('image');
+        $namePath = saveImageOnDisk($image_req,$date);
+        
         //добавляем материал
         $material = new Material();
         $material->name = $request->input('name');
@@ -38,10 +49,9 @@ class AdminMaterialController extends Controller
 
         //добавляем изображение
         date_default_timezone_set('europe/moscow');
-        $image_name_path = saveImageOnDisk($request->file('image'), date("d.m.Y,H.i.s"));
         $image = new MaterialImage();
-        $image->name = $image_name_path['name'];
-        $image->path = $image_name_path['path'];
+        $image->name = $namePath['name'];
+        $image->path = $namePath['path'];
         $material->image()->save($image);
 
         //добавляем категории
@@ -53,7 +63,6 @@ class AdminMaterialController extends Controller
 
     public function destroy(Material $material)
     {
-        deleteImageOnDisk($material->image->name);
         $material->categories()->detach();
         $material->delete();
         return response()->noContent();
@@ -73,6 +82,4 @@ class AdminMaterialController extends Controller
     {
         //
     }
-
-
 }

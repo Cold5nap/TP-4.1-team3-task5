@@ -2,25 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use Aws\S3\S3Client;
 use App\Models\Order;
 use GuzzleHttp\Client;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Aws\S3\MultipartUploader;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\OrderResource;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CustomOrderRequest;
 use App\Http\Requests\ProductOrderRequest;
+use Aws\Exception\MultipartUploadException;
 use Illuminate\Session\Middleware\StartSession;
 
 class OrderController extends Controller
 {
+    
     public function sendCodeOnEmail(Request $request)
     {
-        if(!Order::where('email',$request->input('email'))->exists()){
-            return response('Заказ с почтой '.$request->input('email').' нет.',200);
+        if (!Order::where('email', $request->input('email'))->exists()) {
+            return response('Заказ с почтой ' . $request->input('email') . ' нет.', 200);
         }
         $code = Str::random(10);
         session([$request->input('email') => $code]);
@@ -41,7 +47,7 @@ class OrderController extends Controller
                     ->where('email', $request->get('email'))
                     ->get()
             );
-        }else{
+        } else {
             return response()->noContent();
         }
     }

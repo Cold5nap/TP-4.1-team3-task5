@@ -20,10 +20,11 @@
                     <div class="col-3 form-group">
                         <label for="sum">Сумма за материалы</label>
                         <input disabled type="text" placeholder="Сумма за материалы" id="sum"
-                            v-bind:value="number*price" class="form-control">
+                            v-bind:value="number * price" class="form-control">
                     </div>
 
                     <div class="col-3 form-group">
+
                         <label for="image">Выберите изображение</label>
                         <input type="file" class="form-control form-control-file" ref="image" @change="uploadImage"
                             id="image">
@@ -148,6 +149,7 @@ export default {
                     }
                 })
                 .then(response => {
+                    console.log(response)
                     this.getMaterials()
                 })
                 .catch(error => {
@@ -199,7 +201,7 @@ export default {
     },
     mounted() {
         this.getMaterials(1)
-    }, 
+    },
     components: {
         Paginate
     }
@@ -207,5 +209,3 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>

@@ -1,6 +1,9 @@
 <?php
 
-use App\Models\Image;
+use Aws\S3\S3Client;
+use Aws\S3\MultipartUploader;
+use Illuminate\Support\Facades\Http;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 if (!function_exists('saveImageOnDisk')) {
@@ -16,17 +19,25 @@ if (!function_exists('saveImageOnDisk')) {
      */
     function saveImageOnDisk($image_req, $date, $image_number = '')
     {
-        if ($image_number != '')
-            $image_number = $image_number . '_';
+        //сохраняем изображение на яндекс диске
+        $date = date("d.m.Y,H.i.s");
         $name = $image_number . $date . '_' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
-        $path = '/images/' . $name . '.webp';// относительный путь до файла
+        $path = 'https://storage.yandexcloud.net/fiori2/' . $name . '.jpg';
 
-        //сохраняем на диске
-        \Image::make($image_req)
-            ->encode('webp', 20)
-            ->fit(600, 700)
-            ->save(public_path() . $path, 20, 'webp');
-
+        //сохраняем фото на яндекс облаке
+        $s3 = new S3Client([
+            'version' => 'latest',
+            'endpoint' => 'https://storage.yandexcloud.net',
+            'region' => 'ru-central1',
+        ]);
+        $stream = Image::make($image_req)
+            ->fit(500, 600)
+            ->stream('jpg', 20);
+        $uploader = new MultipartUploader($s3, $stream, [
+            'bucket' => 'fiori2',
+            'key' => $name.'.jpg',
+        ]);
+        $uploader->upload();
         return ['name'=>$name,'path'=>$path];
     }
 }

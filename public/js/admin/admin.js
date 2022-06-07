@@ -20111,6 +20111,8 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
+        console.log(response);
+
         _this.getMaterials();
       })["catch"](function (error) {
         console.log(error);
