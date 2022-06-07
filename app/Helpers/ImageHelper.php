@@ -21,7 +21,7 @@ if (!function_exists('saveImageOnDisk')) {
      */
     function saveImageOnDisk($image_req, $date, $image_number = '')
     {
-        //сохраняем изображение на яндекс диске
+        /* //сохраняем изображение на яндекс диске
         $date = date("d.m.Y,H.i.s");
         $name = $image_number . $date . '_' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
         $path = 'https://storage.yandexcloud.net/fiori2/' . $name . '.jpg';
@@ -45,8 +45,14 @@ if (!function_exists('saveImageOnDisk')) {
             // State contains the "Bucket", "Key", and "UploadId"
             $params = $e->getState()->getId();
             $result = $s3->abortMultipartUpload($params);
-        }
-        
+        } */
+        //сохраняем изображение на яндекс диске
+        $date = date("d.m.Y,H.i.s");
+        $name = $image_number . $date . '_' . pathinfo($image_req->getClientOriginalName(), PATHINFO_FILENAME);
+        $path = 'images/' . $name . '.jpg';
+        $stream = Image::make($image_req)
+        ->fit(500, 600)
+        ->save('jpg', 20);
         return ['name'=>$name,'path'=>$path];
     }
 }
