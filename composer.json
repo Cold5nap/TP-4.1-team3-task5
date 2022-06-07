@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ext-gd": "*",
         "aws/aws-sdk-php": "^3.224",
         "browner12/helpers": "^3.4",
         "darkaonline/l5-swagger": "^8.3",
