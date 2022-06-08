@@ -26,7 +26,7 @@
 •   [Защита проекта](https://youtu.be/iZfsSEhcGz0)<br>
 •   [Защита проекта - презентация(видео)](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Веб-приложение%20для%20покупки%20сухоцветов.pdf)<br>
 •   [Деплой(видео)](https://youtu.be/iCnLqyXMmVg)<br>
-•   [Немного о сайт(видео)](https://youtu.be/ZtB0Jv8JlUg)<br>
+•   [Что под капотом у сайта и некоторые операции на нем.(видео)](https://youtu.be/ZtB0Jv8JlUg)<br>
 •   [Метрика](https://metrika.yandex.ru/dashboard?id=89115359)<br>
 # Сайт
 •	Адрес: [fiorivrn.herokuapp.com](https://fiorivrn.herokuapp.com)<br>
