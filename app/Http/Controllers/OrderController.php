@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Aws\S3\S3Client;
 use App\Models\Order;
 use GuzzleHttp\Client;
@@ -72,7 +73,7 @@ class OrderController extends Controller
                 'error' => 'Captcha is invalid.',
             ], Response::HTTP_BAD_REQUEST);
         }
-
+        try{
         $order = new Order();
         $order->date = $request->input('date');
         $order->address = $request->input('address');
@@ -89,6 +90,9 @@ class OrderController extends Controller
             $products[$product['id']] = ['number_products' => $product['selectedNumber']];
         }
         $order->products()->attach($products);
+        }catch(Exception $e){
+            return $e;
+        }
         return  $request->token;
     }
 

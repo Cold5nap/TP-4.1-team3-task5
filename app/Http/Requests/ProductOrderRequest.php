@@ -29,7 +29,7 @@ class ProductOrderRequest extends FormRequest
             'name_surname' => 'required|min:5|max:50',
             'email' => 'required|min:5|max:50',
             'date' => 'required',
-            'description'=>'nullable|min:15|max:500',
+            'description'=>'nullable|min:5|max:500',
             'phone_number'=>'required',
             'token'=>'required',
         ];

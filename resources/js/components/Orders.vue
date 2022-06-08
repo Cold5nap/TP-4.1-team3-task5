@@ -28,7 +28,7 @@
                             </th>
                             <td class="align-middle">
                                 <h5>{{ product.name }}</h5>
-                            </td>
+                ''            </td>
                             <td class="align-middle">{{ product.price }} руб.</td>
                             <td class="align-middle">{{ product.numberProducts }}</td>
                             <td class="align-middle">{{ product.price * product.numberProducts }} руб.</td>
