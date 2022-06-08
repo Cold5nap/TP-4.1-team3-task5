@@ -26,7 +26,8 @@
 •	[Курсовой проект.pdf](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Курсовой%20проект.pdf)<br>
 •	[Схема базы данных](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/4c3f5981547ad1ebd6d2dc05ae95c454fbd8b9bc/documents/%D0%B1%D0%B4.jpg)<br>
 •   [Защита проекта](https://youtu.be/iZfsSEhcGz0)<br>
-•   [Защита проекта - презентация](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Веб-приложение%20для%20покупки%20сухоцветов.pdf)<br>
+•   [Защита проекта - презентация(видео)](https://github.com/Cold5nap/TP-4.1-team3-task5/blob/master/documents/Веб-приложение%20для%20покупки%20сухоцветов.pdf)<br>
+•   [Деплой(видео)](https://youtu.be/iCnLqyXMmVg)<br>
 •   [Метрика](https://metrika.yandex.ru/dashboard?id=89115359)<br>
 # Сайт
 •	Адрес: [fiorivrn.herokuapp.com](https://fiorivrn.herokuapp.com)<br>
